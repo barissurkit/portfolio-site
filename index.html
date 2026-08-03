@@ -1,147 +1,205 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="tr" data-theme="light">
 
 <head>
     <meta charset="UTF-8">
-    <title>Barış | Portfolyo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" data-i18n-content="meta.description"
+        content="Bilgisayar mühendisliği öğrencisi Barış Sürkit'in ilgi alanları, seçili projeleri ve iletişim bilgileri.">
+    <meta name="theme-color" content="#f5f3ee" data-theme-color>
+    <meta property="og:title" content="Barış Sürkit | Kişisel Portfolyo" data-i18n-content="meta.title">
+    <meta property="og:description" data-i18n-content="meta.ogDescription"
+        content="Barış Sürkit'in yazılım, veri analizi ve makine öğrenmesi üzerine çalışmaları.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://barissurkit.com/">
+    <meta property="og:locale" content="tr_TR" data-i18n-content="meta.locale">
+    <meta name="twitter:card" content="summary">
+    <link rel="canonical" href="https://barissurkit.com/">
+    <script>
+        (() => {
+            try {
+                const savedTheme = localStorage.getItem("portfolio-theme");
+                const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+                document.documentElement.dataset.theme =
+                    savedTheme === "light" || savedTheme === "dark" ? savedTheme : prefersDark ? "dark" : "light";
+            } catch {
+                document.documentElement.dataset.theme = "light";
+            }
+        })();
+    </script>
     <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+    <title>Barış Sürkit | Kişisel Portfolyo</title>
 </head>
 
 <body>
+    <a class="skip-link" href="#main-content" data-i18n="skipLink">Ana içeriğe geç</a>
 
-    <div id="top">
-        <div id="top-inner">
-            <div id="name-box">
-                <h1>Barış</h1>
-                <p>Yazılım Geliştirici Adayı</p>
-            </div>
+    <header class="site-header">
+        <div class="header-container">
+            <a class="brand" href="#home" aria-label="Barış Sürkit ana sayfa"
+                data-i18n-aria-label="brandLabel">Barış Sürkit</a>
 
-            <div id="menu-box">
-                <a href="#home">Ana Sayfa</a>
-                <a href="#about">Hakkımda</a>
-                <a href="#skills">Yetenekler</a>
-                <a href="#projects">Projeler</a>
-                <a href="#contact">İletişim</a>
+            <div class="header-actions">
+                <div class="preference-controls" role="group" aria-label="Görünüm ve dil ayarları"
+                    data-i18n-aria-label="preferencesLabel">
+                    <button class="preference-button theme-toggle" type="button" data-theme-toggle
+                        aria-label="Koyu temaya geç" title="Koyu temaya geç" aria-pressed="false">
+                        <span data-theme-icon aria-hidden="true">☾</span>
+                    </button>
+                    <button class="preference-button language-toggle" type="button" data-language-toggle
+                        aria-label="İngilizceye geç" title="İngilizceye geç" lang="en">EN</button>
+                </div>
+
+                <details class="nav-menu" data-nav-menu>
+                    <summary class="menu-toggle" data-i18n="menu">Menü</summary>
+                    <nav class="site-nav" aria-label="Ana menü" data-i18n-aria-label="navLabel">
+                        <a href="#home" data-i18n="nav.home">Ana Sayfa</a>
+                        <a href="#about" data-i18n="nav.about">Hakkımda</a>
+                        <a href="#projects" data-i18n="nav.projects">Projeler</a>
+                        <a href="#contact" data-i18n="nav.contact">İletişim</a>
+                    </nav>
+                </details>
             </div>
         </div>
-    </div>
+    </header>
 
-    <div id="home">
-        <div id="home-inner">
-            <div id="home-left">
-                <p class="small-text">Merhaba, ben</p>
-                <h2 class="baris.text">Barış</h2>
-                <p class="home-text">
-                    Selam, ben Barış. Üretmeyi, öğrenmeyi ve fikirlerimi küçük yazılım projelerine dönüştürmeyi
-                    seviyorum.
-                    Her gün biraz daha iyi olmayı hedefleyen bir yazılım ve geliştirme meraklısıyım.
+    <main id="main-content" tabindex="-1">
+        <section class="hero" id="home" aria-labelledby="hero-title">
+            <div class="container">
+                <p class="eyebrow" data-i18n="hero.eyebrow">Bilgisayar Mühendisliği Öğrencisi</p>
+                <h1 id="hero-title">Barış Sürkit</h1>
+                <p class="hero-copy" data-i18n="hero.copy">
+                    Veri bilimi, makine öğrenmesi, yapay zekâ ve yazılım geliştirmeyle ilgileniyorum. Öğrendiklerimi
+                    küçük projeler geliştirerek pekiştiriyor, çalışmalarımı bu sitede paylaşıyorum.
+                </p>
+                <ul class="hero-links" aria-label="Hızlı bağlantılar" data-i18n-aria-label="hero.linksLabel">
+                    <li><a href="https://github.com/barissurkit" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+                    <li><a href="https://www.linkedin.com/in/bar%C4%B1%C5%9F-s%C3%BCrkit-748538320/" target="_blank"
+                            rel="noopener noreferrer">LinkedIn</a></li>
+                    <li><a href="#contact" data-i18n="nav.contact">İletişim</a></li>
+                </ul>
+            </div>
+        </section>
+
+        <div class="container">
+            <section class="content-section" id="about" aria-labelledby="about-title">
+                <h2 id="about-title" data-i18n="about.title">Hakkımda</h2>
+                <p class="about-copy" data-i18n="about.copy">
+                    Ben Barış. Bilgisayar mühendisliği öğrencisiyim. Python, veri analizi ve makine öğrenmesi üzerine
+                    çalışıyorum. Öğrendiklerimi küçük projeler geliştirerek pekiştiriyorum. Bu sitede çalışmalarımı ve
+                    gelişim sürecimi paylaşıyorum.
                 </p>
 
-                <div id="home-buttons">
-                    <a href="#projects" class="btn btn-blue">Projelerimi Gör</a>
-                    <a href="#contact" class="btn btn-outline">Benimle İletişime Geç</a>
+                <dl class="cv-list">
+                    <div>
+                        <dt data-i18n="about.educationLabel">Eğitim</dt>
+                        <dd data-i18n="about.education">Bilgisayar Mühendisliği öğrencisi</dd>
+                    </div>
+                    <div>
+                        <dt data-i18n="about.locationLabel">Konum</dt>
+                        <dd data-i18n="about.location">Edirne, Türkiye</dd>
+                    </div>
+                    <div>
+                        <dt data-i18n="about.interestsLabel">İlgi alanları</dt>
+                        <dd data-i18n="about.interests">Veri Bilimi, Makine Öğrenmesi, Yapay Zekâ ve Yazılım Geliştirme</dd>
+                    </div>
+                </dl>
+            </section>
+
+            <section class="content-section" id="skills" aria-labelledby="skills-title">
+                <h2 id="skills-title" data-i18n="skills.title">Teknolojiler ve yetenekler</h2>
+                <p class="section-intro" data-i18n="skills.intro">Kullandığım ve üzerine çalıştığım temel konular:</p>
+                <ul class="tag-list" aria-label="Teknolojiler ve yetenekler"
+                    data-i18n-aria-label="skills.listLabel">
+                    <li>Python</li>
+                    <li data-i18n="skills.dataAnalysis">Veri Analizi</li>
+                    <li data-i18n="skills.machineLearning">Makine Öğrenmesi</li>
+                    <li>HTML</li>
+                    <li>CSS</li>
+                    <li>JavaScript</li>
+                    <li>Git</li>
+                    <li>GitHub</li>
+                </ul>
+            </section>
+
+            <section class="content-section" id="projects" aria-labelledby="projects-title">
+                <h2 id="projects-title" data-i18n="projects.title">Seçili projeler</h2>
+                <p class="section-intro" data-i18n="projects.intro">Öğrendiklerimi uygulamak için geliştirdiğim çalışmalardan bazıları.</p>
+
+                <div class="project-list">
+                    <article class="project-item">
+                        <h3>BütçeDostum</h3>
+                        <p data-i18n="projects.budgetDescription">Gelir ve giderleri daha kolay takip etmek için hazırladığım sade bir bütçe uygulaması.</p>
+                        <ul class="project-tech" aria-label="BütçeDostum teknolojileri"
+                            data-i18n-aria-label="projects.budgetTechLabel">
+                            <li>Next.js</li>
+                            <li>TypeScript</li>
+                            <li>Prisma ORM</li>
+                            <li>SQLite</li>
+                        </ul>
+                    </article>
+
+                    <article class="project-item">
+                        <h3 data-i18n="projects.portfolioTitle">Kişisel Portfolyo</h3>
+                        <p data-i18n="projects.portfolioDescription">Projelerimi, öğrendiklerimi ve gelişim sürecimi paylaştığım bu kişisel web sitesi.</p>
+                        <ul class="project-tech" aria-label="Portfolyo teknolojileri"
+                            data-i18n-aria-label="projects.portfolioTechLabel">
+                            <li>HTML</li>
+                            <li>CSS</li>
+                            <li>JavaScript</li>
+                        </ul>
+                        <a class="project-link" href="https://github.com/barissurkit/portfolio-site" target="_blank"
+                            rel="noopener noreferrer"><span data-i18n="projects.viewOnGitHub">GitHub'da görüntüle</span>
+                            <span aria-hidden="true">→</span></a>
+                    </article>
+
+                    <article class="project-item">
+                        <h3 data-i18n="projects.pythonTitle">Mini Python Scriptleri</h3>
+                        <p data-i18n="projects.pythonDescription">Algoritma pratiği yapmak ve günlük küçük işleri kolaylaştırmak için yazdığım scriptler.</p>
+                        <ul class="project-tech" aria-label="Python script teknolojileri"
+                            data-i18n-aria-label="projects.pythonTechLabel">
+                            <li>Python</li>
+                            <li data-i18n="skills.algorithm">Algoritma</li>
+                        </ul>
+                    </article>
                 </div>
 
-                <p class="tag">📍 Türkiye</p>
-                <p class="tag">💻 Bilgisayar Mühendisliği Öğrencisi</p>
-            </div>
+                <a class="all-projects-link" href="https://github.com/barissurkit" target="_blank"
+                    rel="noopener noreferrer"><span data-i18n="projects.allOnGitHub">Tüm çalışmalarımı GitHub'da gör</span>
+                    <span aria-hidden="true">→</span></a>
+            </section>
 
-            <div id="home-right">
-                <div id="photo-box">
-                    <img src="./images/barissurkit.jpg" alt="Barış profil fotoğrafı">
-                </div>
-            </div>
+            <section class="content-section" id="contact" aria-labelledby="contact-title">
+                <h2 id="contact-title" data-i18n="contact.title">İletişim</h2>
+                <p class="section-intro" data-i18n="contact.intro">Bir şey sormak veya bir proje üzerine konuşmak istersen bana ulaşabilirsin.</p>
+
+                <ul class="contact-list">
+                    <li>
+                        <span data-i18n="contact.email">E-posta</span>
+                        <a href="mailto:barissurkitdev@gmail.com">barissurkitdev@gmail.com</a>
+                    </li>
+                    <li>
+                        <span>GitHub</span>
+                        <a href="https://github.com/barissurkit" target="_blank"
+                            rel="noopener noreferrer">github.com/barissurkit</a>
+                    </li>
+                    <li>
+                        <span>LinkedIn</span>
+                        <a href="https://www.linkedin.com/in/bar%C4%B1%C5%9F-s%C3%BCrkit-748538320/" target="_blank"
+                            rel="noopener noreferrer" data-i18n="contact.linkedinProfile">LinkedIn profili</a>
+                    </li>
+                </ul>
+            </section>
         </div>
-    </div>
+    </main>
 
-    <hr>
-
-    <div id="about">
-        <div class="section-box">
-            <h3>Hakkımda</h3>
-            <p>
-                Ben Barış. Yazılıma hevesli, meraklı ve kendini sürekli geliştirmeye çalışan bir öğrenciyim.
-                HTML, CSS ve Python ile projeler geliştiriyorum. Amacım zamanla daha büyük işler ortaya çıkarmak.
-            </p>
+    <footer class="site-footer">
+        <div class="container footer-inner">
+            <p>© 2026 Barış Sürkit</p>
+            <a href="#home"><span data-i18n="footer.backToTop">Başa dön</span> <span aria-hidden="true">↑</span></a>
         </div>
-    </div>
-
-    <hr>
-
-    <div id="skills">
-        <div class="section-box">
-            <h3>Yetenekler</h3>
-
-            <div class="skill-box">
-                <h4>HTML & CSS</h4>
-                <p>Basit ve anlaşılır web sayfaları tasarlayabiliyorum.</p>
-            </div>
-
-            <div class="skill-box">
-                <h4>JavaScript</h4>
-                <p>Küçük etkileşimler ve temel fonksiyonlar yazabiliyorum.</p>
-            </div>
-
-            <div class="skill-box">
-                <h4>Python</h4>
-                <p>Algoritma çalışmaları ve küçük script’ler yazıyorum.</p>
-            </div>
-
-            <div class="skill-box">
-                <h4>Problem Çözme</h4>
-                <p>Sorunları anlamaya ve çözümler üretmeye çalışıyorum.</p>
-            </div>
-        </div>
-    </div>
-
-    <hr>
-
-    <div id="projects">
-        <div class="section-box">
-            <h3>Projeler</h3>
-
-            <div class="project-box">
-                <h4>BütçeDostum</h4>
-                <p>Gelir ve giderlerinizi kolayca takip edebileceğiniz, modern ve sade bir arayüze sahip bir bütçe takip
-                    uygulamasıdır.</p>
-                <p class="project-tag">Next.js,React,TypeScript,Prisma ORM, SQLite, JWT & Cookie tabanlı Authentication,
-                    Tailwind, REST API</p>
-            </div>
-
-            <div class="project-box">
-                <h4>Kişisel Portfolyo Sitesi</h4>
-                <p>Temel HTML ve CSS kullanarak hazırladığım sade bir portfolyo sayfası.</p>
-                <p class="project-tag">HTML, CSS</p>
-            </div>
-
-            <div class="project-box">
-                <h4>Mini Python Scriptleri</h4>
-                <p>Günlük işleri kolaylaştıran küçük Python komut dosyaları.</p>
-                <p class="project-tag">Python</p>
-            </div>
-        </div>
-    </div>
-
-    <hr>
-
-    <div id="contact">
-        <div class="section-box">
-            <h3>İletişim</h3>
-            <p>Bir sorunuz ya da projeniz varsa bana aşağıdan ulaşabilirsiniz.</p>
-
-            <p><b>E-posta:</b> <a href="mailto:barissurkitdev@gmail.com">barissurkitdev@gmail.com</a></p>
-            <p><b>GitHub:</b> <a href="https://github.com/barissurkit" target="_blank">github.com/barissurkit</a></p>
-            <p><b>LinkedIn:</b> <a href="https://www.linkedin.com/in/bar%C4%B1%C5%9F-s%C3%BCrkit-748538320/"
-                    target="_blank">linkedin.com/barissurkit</a></p>
-        </div>
-    </div>
-
-    <hr>
-
-    <div id="footer">
-        <p>© 2025 Barış</p>
-    </div>
-
+    </footer>
 </body>
 
 </html>
