@@ -155,7 +155,7 @@
     let currentTheme = ["light", "dark"].includes(root.dataset.theme)
         ? root.dataset.theme
         : systemTheme.matches ? "dark" : "light";
-    let currentLanguage = getStoredValue("portfolio-language") === "en" ? "en" : "tr";
+    let currentLanguage = "en";
 
     const updateThemeControl = () => {
         const isDark = currentTheme === "dark";
@@ -189,7 +189,7 @@
         updateThemeControl();
     };
 
-    const applyLanguage = (language, save = false) => {
+    const applyLanguage = (language) => {
         currentLanguage = language === "en" ? "en" : "tr";
         const dictionary = translations[currentLanguage];
         root.lang = currentLanguage;
@@ -225,10 +225,6 @@
             languageButton.title = label;
         }
 
-        if (save) {
-            storeValue("portfolio-language", currentLanguage);
-        }
-
         updateThemeControl();
     };
 
@@ -237,7 +233,7 @@
     });
 
     languageButton?.addEventListener("click", () => {
-        applyLanguage(currentLanguage === "tr" ? "en" : "tr", true);
+        applyLanguage(currentLanguage === "tr" ? "en" : "tr");
     });
 
     const handleSystemThemeChange = (event) => {
