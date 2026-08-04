@@ -9,6 +9,10 @@
     --link: #3d5661;
     --line: #d8d8d3;
     --selection: #dfe5e5;
+    --cv-button-background: #ffffff;
+    --cv-button-hover: #f1f4f4;
+    --cv-button-text: #193241;
+    --cv-button-border: #d2d7d8;
     --content-width: 760px;
     --header-width: 820px;
     --header-height: 64px;
@@ -26,6 +30,10 @@
     --link: #bdd0d7;
     --line: #424a4c;
     --selection: #3a5058;
+    --cv-button-background: #f7f8f7;
+    --cv-button-hover: #e9eeee;
+    --cv-button-text: #17313f;
+    --cv-button-border: #f7f8f7;
 }
 
 *,
@@ -39,7 +47,6 @@ html {
 }
 
 body {
-    min-width: 320px;
     margin: 0;
     overflow-x: clip;
     background: var(--background);
@@ -259,6 +266,56 @@ section[id] {
     font-weight: 700;
 }
 
+.cv-download-block {
+    width: fit-content;
+    max-width: 100%;
+    margin-top: 24px;
+    text-align: center;
+}
+
+.cv-download-button {
+    display: inline-flex;
+    min-height: 48px;
+    align-items: center;
+    justify-content: center;
+    gap: 11px;
+    padding-inline: 17px;
+    border: 1px solid var(--cv-button-border);
+    border-radius: 8px;
+    background: var(--cv-button-background);
+    color: var(--cv-button-text);
+    font-size: 0.9rem;
+    font-weight: 700;
+    line-height: 1.2;
+    text-decoration: none;
+    transition:
+        background-color var(--transition),
+        border-color var(--transition),
+        transform var(--transition);
+}
+
+.cv-download-icons {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.cv-download-icons svg {
+    width: 17px;
+    height: 17px;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.8;
+}
+
+.cv-download-meta {
+    margin-top: 7px;
+    color: var(--muted);
+    font-size: 0.73rem;
+}
+
 .content-section {
     padding-block: clamp(52px, 7vw, 68px);
     border-top: 1px solid var(--line);
@@ -422,6 +479,15 @@ section[id] {
         background: var(--surface);
         color: var(--text);
     }
+
+    .cv-download-button:hover {
+        border-color: var(--accent);
+        background: var(--cv-button-hover);
+        color: var(--cv-button-text);
+        text-decoration: none;
+        transform: translateY(-1px);
+    }
+
 }
 
 @media (max-width: 640px) {
@@ -565,6 +631,7 @@ section[id] {
     }
 
     a,
+    .cv-download-button,
     .preference-button,
     .skip-link {
         transition: none;
