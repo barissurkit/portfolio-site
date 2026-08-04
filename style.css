@@ -267,24 +267,32 @@ section[id] {
 }
 
 .cv-download-block {
-    width: fit-content;
+    display: grid;
+    width: min(100%, 380px);
     max-width: 100%;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
     margin-top: 24px;
+}
+
+.cv-download-option {
+    min-width: 0;
     text-align: center;
 }
 
 .cv-download-button {
     display: inline-flex;
+    width: 100%;
     min-height: 48px;
     align-items: center;
     justify-content: center;
-    gap: 11px;
-    padding-inline: 17px;
+    gap: 9px;
+    padding-inline: 11px;
     border: 1px solid var(--cv-button-border);
     border-radius: 8px;
     background: var(--cv-button-background);
     color: var(--cv-button-text);
-    font-size: 0.9rem;
+    font-size: 0.82rem;
     font-weight: 700;
     line-height: 1.2;
     text-decoration: none;
@@ -297,12 +305,12 @@ section[id] {
 .cv-download-icons {
     display: inline-flex;
     align-items: center;
-    gap: 7px;
+    gap: 6px;
 }
 
 .cv-download-icons svg {
-    width: 17px;
-    height: 17px;
+    width: 16px;
+    height: 16px;
     fill: none;
     stroke: currentColor;
     stroke-linecap: round;
@@ -313,7 +321,7 @@ section[id] {
 .cv-download-meta {
     margin-top: 7px;
     color: var(--muted);
-    font-size: 0.73rem;
+    font-size: 0.68rem;
 }
 
 .content-section {
