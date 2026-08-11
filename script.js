@@ -10,7 +10,7 @@
     const desktopQuery = window.matchMedia("(min-width: 641px)");
     const navMenu = document.querySelector("[data-nav-menu]");
     const menuSummary = navMenu?.querySelector("summary");
-    const navLinks = navMenu?.querySelectorAll("a[href^='#']") ?? [];
+    const navLinks = navMenu?.querySelectorAll("a") ?? [];
     const copyEmailButton = document.querySelector("[data-copy-email]");
     const emailLink = document.querySelector("[data-email-address]");
     const copyStatus = document.querySelector("[data-copy-status]");
@@ -19,6 +19,8 @@
         tr: {
             "meta.title": "Barış Sürkit | Kişisel Portfolyo",
             "meta.description": "Bilgisayar mühendisliği öğrencisi Barış Sürkit'in ilgi alanları, seçili projeleri ve iletişim bilgileri.",
+            "meta.projectsTitle": "Barış Sürkit | Projeler",
+            "meta.projectsDescription": "Bilgisayar mühendisliği öğrencisi Barış Sürkit'in geliştirdiği projelerden bir seçki.",
             "meta.ogDescription": "Barış Sürkit'in yazılım, veri analizi ve makine öğrenmesi üzerine çalışmaları.",
             "meta.locale": "tr_TR",
             "meta.alternateLocale": "en_US",
@@ -74,6 +76,7 @@
             "projects.portfolioTechLabel": "Portfolyo teknolojileri",
             "projects.portfolioActionsLabel": "Kişisel Portfolyo proje bağlantıları",
             "projects.portfolioLiveLabel": "Kişisel Portfolyo canlı demosu (yeni sekmede açılır)",
+            "projects.portfolioHomeLabel": "Kişisel Portfolyo ana sayfası",
             "projects.portfolioSourceLabel": "Kişisel Portfolyo kaynak kodu (yeni sekmede açılır)",
             "projects.pythonTitle": "Mini Python Scriptleri",
             "projects.pythonDescription": "Algoritma pratiği yapmak ve günlük küçük işleri kolaylaştırmak için yazdığım scriptler.",
@@ -84,6 +87,13 @@
             "projects.liveDemo": "Canlı demo",
             "projects.sourceCode": "Kaynak kodu",
             "projects.allOnGitHub": "Tüm çalışmalarımı GitHub'da gör",
+            "projects.viewPage": "Proje vitrini sayfasına git",
+            "projects.budgetImageAlt": "BütçeDostum giriş ekranı",
+            "projects.portfolioImageAlt": "Kişisel portfolyo ana sayfası ekran görüntüsü",
+            "projectsPage.eyebrow": "Projeler",
+            "projectsPage.title": "Projeler",
+            "projectsPage.intro": "Yazılım geliştirme, veri ve makine öğrenmesi öğrenirken geliştirdiğim çalışmalardan bir seçki.",
+            "projectsPage.featuredTitle": "Öne çıkan projeler",
             "contact.title": "İletişim",
             "contact.intro": "Bir şey sormak veya bir proje üzerine konuşmak istersen bana ulaşabilirsin.",
             "contact.email": "E-posta",
@@ -91,11 +101,14 @@
             "contact.copySuccess": "E-posta adresi kopyalandı.",
             "contact.copyError": "Kopyalanamadı; adresi seçerek kopyalayabilirsin.",
             "contact.linkedinProfile": "LinkedIn profili",
-            "footer.backToTop": "Başa dön"
+            "footer.backToTop": "Başa dön",
+            "footer.backToHome": "Ana sayfaya dön"
         },
         en: {
             "meta.title": "Barış Sürkit | Personal Portfolio",
             "meta.description": "The interests, selected projects, and contact details of computer engineering student Barış Sürkit.",
+            "meta.projectsTitle": "Barış Sürkit | Projects",
+            "meta.projectsDescription": "A selection of projects by computer engineering student Barış Sürkit.",
             "meta.ogDescription": "Barış Sürkit's work in software development, data analysis, and machine learning.",
             "meta.locale": "en_US",
             "meta.alternateLocale": "tr_TR",
@@ -151,6 +164,7 @@
             "projects.portfolioTechLabel": "Portfolio technologies",
             "projects.portfolioActionsLabel": "Personal Portfolio project links",
             "projects.portfolioLiveLabel": "Personal Portfolio live demo (opens in a new tab)",
+            "projects.portfolioHomeLabel": "Personal Portfolio home page",
             "projects.portfolioSourceLabel": "Personal Portfolio source code (opens in a new tab)",
             "projects.pythonTitle": "Mini Python Scripts",
             "projects.pythonDescription": "Scripts I write to practise algorithms and simplify small everyday tasks.",
@@ -161,6 +175,13 @@
             "projects.liveDemo": "Live demo",
             "projects.sourceCode": "Source code",
             "projects.allOnGitHub": "See all my work on GitHub",
+            "projects.viewPage": "View the project showcase",
+            "projects.budgetImageAlt": "BütçeDostum login screen",
+            "projects.portfolioImageAlt": "Personal portfolio home page screenshot",
+            "projectsPage.eyebrow": "Projects",
+            "projectsPage.title": "Projects",
+            "projectsPage.intro": "A selection of projects I have built while learning and exploring software development, data, and machine learning.",
+            "projectsPage.featuredTitle": "Featured Projects",
             "contact.title": "Contact",
             "contact.intro": "Feel free to get in touch if you would like to ask something or discuss a project.",
             "contact.email": "Email",
@@ -168,7 +189,8 @@
             "contact.copySuccess": "Email address copied.",
             "contact.copyError": "Could not copy; select the address to copy it.",
             "contact.linkedinProfile": "LinkedIn profile",
-            "footer.backToTop": "Back to top"
+            "footer.backToTop": "Back to top",
+            "footer.backToHome": "Back to home"
         }
     };
 
@@ -192,7 +214,9 @@
     let currentTheme = ["light", "dark"].includes(root.dataset.theme)
         ? root.dataset.theme
         : systemTheme.matches ? "dark" : "light";
-    let currentLanguage = "en";
+    let currentLanguage = ["en", "tr"].includes(getStoredValue("portfolio-language"))
+        ? getStoredValue("portfolio-language")
+        : "en";
     let copyStatusKey = null;
     let copyStatusTimer = null;
     let isCopyingEmail = false;
@@ -228,11 +252,16 @@
         updateThemeControl();
     };
 
-    const applyLanguage = (language) => {
+    const applyLanguage = (language, save = false) => {
         currentLanguage = language === "en" ? "en" : "tr";
         const dictionary = translations[currentLanguage];
         root.lang = currentLanguage;
-        document.title = dictionary["meta.title"];
+        const pageTitle = document.querySelector("[data-page-title]");
+        document.title = dictionary[pageTitle?.dataset.pageTitle ?? "meta.title"];
+
+        if (save) {
+            storeValue("portfolio-language", currentLanguage);
+        }
 
         document.querySelectorAll("[data-i18n]").forEach((element) => {
             const value = dictionary[element.dataset.i18n];
@@ -252,6 +281,13 @@
             const value = dictionary[element.dataset.i18nContent];
             if (value) {
                 element.setAttribute("content", value);
+            }
+        });
+
+        document.querySelectorAll("[data-i18n-alt]").forEach((element) => {
+            const value = dictionary[element.dataset.i18nAlt];
+            if (value) {
+                element.setAttribute("alt", value);
             }
         });
 
@@ -276,7 +312,7 @@
     });
 
     languageButton?.addEventListener("click", () => {
-        applyLanguage(currentLanguage === "tr" ? "en" : "tr");
+        applyLanguage(currentLanguage === "tr" ? "en" : "tr", true);
     });
 
     const showCopyStatus = (key) => {
@@ -390,6 +426,10 @@
 
     const navigationTargets = Array.from(navLinks)
         .map((link) => {
+            if (!link.hash) {
+                return null;
+            }
+
             const section = document.querySelector(link.hash);
             return section ? { link, section } : null;
         })
