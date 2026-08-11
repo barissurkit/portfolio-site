@@ -1,0 +1,193 @@
+@page {
+    size: A4;
+    margin: 11mm 13mm 10mm;
+}
+
+:root {
+    color: #2f3134;
+    font-family: "Nimbus Sans", "Liberation Sans", Arial, sans-serif;
+    font-size: 9pt;
+    line-height: 1.2;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+}
+
+address {
+    font-style: normal;
+}
+
+h1,
+h2,
+h3,
+p,
+ul,
+dl,
+dd {
+    margin: 0;
+}
+
+a {
+    color: #183d75;
+    text-decoration: none;
+}
+
+.resume-header {
+    padding-bottom: 2.2mm;
+    border-bottom: 2.2pt solid #1f3a68;
+}
+
+h1 {
+    color: #1f3a68;
+    font-size: 26pt;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1;
+}
+
+.role {
+    margin-top: 2.1mm;
+    color: #52565a;
+    font-size: 12pt;
+    line-height: 1.1;
+}
+
+.contact-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1mm 6mm;
+    margin-top: 2.4mm;
+    padding: 0;
+    color: #45494d;
+    font-size: 8.4pt;
+    list-style: none;
+}
+
+.contact-list + .contact-list {
+    margin-top: 1mm;
+}
+
+.contact-list li {
+    white-space: nowrap;
+}
+
+.contact-label {
+    color: #1f3a68;
+    font-weight: 700;
+}
+
+section {
+    break-inside: avoid;
+}
+
+h2 {
+    margin-top: 2.8mm;
+    padding-bottom: 0.9mm;
+    border-bottom: 0.7pt solid #c9d3e2;
+    color: #1f3a68;
+    font-size: 11.5pt;
+    font-weight: 700;
+    letter-spacing: 0.075em;
+    line-height: 1;
+    text-transform: uppercase;
+}
+
+.profile-copy {
+    margin-top: 1.5mm;
+    text-align: left;
+}
+
+.entry {
+    margin-top: 1.4mm;
+    break-inside: avoid;
+}
+
+.entry-heading {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 4mm;
+}
+
+h3 {
+    color: #27292c;
+    font-size: 9.3pt;
+    font-weight: 700;
+    line-height: 1.15;
+}
+
+.tech {
+    color: #1f3a68;
+    font-weight: 400;
+    font-style: italic;
+}
+
+.date,
+.reference {
+    flex-shrink: 0;
+    color: #717579;
+    font-style: italic;
+}
+
+.reference {
+    color: #183d75;
+    font-style: normal;
+}
+
+.reference a {
+    color: inherit;
+}
+
+.entry-subtitle {
+    margin-top: 0.6mm;
+    color: #515559;
+}
+
+.details {
+    margin-top: 0.6mm;
+    padding-left: 4.2mm;
+}
+
+.details li {
+    margin-top: 0.35mm;
+    padding-left: 0.2mm;
+}
+
+.details li::marker {
+    color: #2f3134;
+}
+
+.skills-list {
+    margin-top: 1.4mm;
+}
+
+.skills-list > div {
+    display: grid;
+    grid-template-columns: 44mm 1fr;
+    gap: 2mm;
+    margin-top: 0.7mm;
+}
+
+.skills-list dt {
+    color: #1f3a68;
+    font-weight: 700;
+}
+
+.skills-list dd {
+    min-width: 0;
+}
+
+.compact-section h2 {
+    margin-top: 2.5mm;
+}
+
+@media print {
+    a {
+        text-decoration: none;
+    }
+}
