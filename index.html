@@ -6,16 +6,88 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" data-i18n-content="meta.description"
         content="The interests, selected projects, and contact details of computer engineering student Barış Sürkit.">
+    <meta name="author" content="Barış Sürkit">
     <meta name="theme-color" content="#f5f3ee" data-theme-color>
     <meta property="og:title" content="Barış Sürkit | Personal Portfolio" data-i18n-content="meta.title">
     <meta property="og:description" data-i18n-content="meta.ogDescription"
         content="Barış Sürkit's work in software development, data analysis, and machine learning.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://barissurkit.com/">
+    <meta property="og:site_name" content="Barış Sürkit">
     <meta property="og:locale" content="en_US" data-i18n-content="meta.locale">
+    <meta property="og:locale:alternate" content="tr_TR" data-i18n-content="meta.alternateLocale">
+    <meta property="og:image" content="https://barissurkit.com/images/barissurkit.jpg">
+    <meta property="og:image:secure_url" content="https://barissurkit.com/images/barissurkit.jpg">
+    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="1600">
+    <meta property="og:image:alt" content="Portrait of Barış Sürkit" data-i18n-content="meta.imageAlt">
     <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Barış Sürkit | Personal Portfolio" data-i18n-content="meta.title">
+    <meta name="twitter:description" content="Barış Sürkit's work in software development, data analysis, and machine learning."
+        data-i18n-content="meta.ogDescription">
+    <meta name="twitter:image" content="https://barissurkit.com/images/barissurkit.jpg">
+    <meta name="twitter:image:alt" content="Portrait of Barış Sürkit" data-i18n-content="meta.imageAlt">
     <link rel="canonical" href="https://barissurkit.com/">
+    <link rel="me" href="https://github.com/barissurkit">
+    <link rel="me" href="https://www.linkedin.com/in/bar%C4%B1%C5%9F-s%C3%BCrkit-748538320/">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@graph": [
+                {
+                    "@type": "ProfilePage",
+                    "@id": "https://barissurkit.com/#profile-page",
+                    "url": "https://barissurkit.com/",
+                    "name": "Barış Sürkit | Personal Portfolio",
+                    "description": "The interests, selected projects, and contact details of computer engineering student Barış Sürkit.",
+                    "inLanguage": ["en", "tr"],
+                    "primaryImageOfPage": {
+                        "@id": "https://barissurkit.com/#portrait"
+                    },
+                    "mainEntity": {
+                        "@id": "https://barissurkit.com/#person"
+                    }
+                },
+                {
+                    "@type": "Person",
+                    "@id": "https://barissurkit.com/#person",
+                    "name": "Barış Sürkit",
+                    "url": "https://barissurkit.com/",
+                    "image": {
+                        "@id": "https://barissurkit.com/#portrait"
+                    },
+                    "jobTitle": "Computer Engineering Student",
+                    "description": "Computer engineering student interested in software development, data analysis, machine learning, and artificial intelligence.",
+                    "knowsAbout": [
+                        "Software Development",
+                        "Data Analysis",
+                        "Machine Learning",
+                        "Artificial Intelligence",
+                        "Python",
+                        "JavaScript"
+                    ],
+                    "sameAs": [
+                        "https://github.com/barissurkit",
+                        "https://www.linkedin.com/in/bar%C4%B1%C5%9F-s%C3%BCrkit-748538320/"
+                    ],
+                    "mainEntityOfPage": {
+                        "@id": "https://barissurkit.com/#profile-page"
+                    }
+                },
+                {
+                    "@type": "ImageObject",
+                    "@id": "https://barissurkit.com/#portrait",
+                    "url": "https://barissurkit.com/images/barissurkit.jpg",
+                    "contentUrl": "https://barissurkit.com/images/barissurkit.jpg",
+                    "width": 1200,
+                    "height": 1600,
+                    "caption": "Barış Sürkit"
+                }
+            ]
+        }
+    </script>
     <script>
         (() => {
             try {
@@ -45,7 +117,7 @@
                 <div class="preference-controls" role="group" aria-label="Appearance and language settings"
                     data-i18n-aria-label="preferencesLabel">
                     <button class="preference-button theme-toggle" type="button" data-theme-toggle
-                        aria-label="Switch to dark theme" title="Switch to dark theme" aria-pressed="false">
+                        aria-label="Switch to dark theme" title="Switch to dark theme">
                         <span data-theme-icon aria-hidden="true">☾</span>
                     </button>
                     <button class="preference-button language-toggle" type="button" data-language-toggle
@@ -53,10 +125,14 @@
                 </div>
 
                 <details class="nav-menu" data-nav-menu>
-                    <summary class="menu-toggle" data-i18n="menu">Menu</summary>
+                    <summary class="menu-toggle">
+                        <span data-i18n="menu">Menu</span>
+                        <span class="menu-indicator" aria-hidden="true"></span>
+                    </summary>
                     <nav class="site-nav" aria-label="Main navigation" data-i18n-aria-label="navLabel">
-                        <a href="#home" data-i18n="nav.home">Home</a>
+                        <a href="#home" data-i18n="nav.home" aria-current="location">Home</a>
                         <a href="#about" data-i18n="nav.about">About</a>
+                        <a href="#skills" data-i18n="nav.skills">Skills</a>
                         <a href="#projects" data-i18n="nav.projects">Projects</a>
                         <a href="#contact" data-i18n="nav.contact">Contact</a>
                     </nav>
@@ -75,10 +151,12 @@
                     I’m interested in data science, machine learning, artificial intelligence, and software
                     development. I reinforce what I learn by building small projects and share my work on this site.
                 </p>
-                <ul class="hero-links" aria-label="Quick links" data-i18n-aria-label="hero.linksLabel">
-                    <li><a href="https://github.com/barissurkit" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+                <ul class="hero-links" role="list" aria-label="Quick links" data-i18n-aria-label="hero.linksLabel">
+                    <li><a href="https://github.com/barissurkit" target="_blank" rel="me noopener noreferrer">GitHub<span
+                                class="visually-hidden" data-i18n="external.newTab"> (opens in a new tab)</span></a></li>
                     <li><a href="https://www.linkedin.com/in/bar%C4%B1%C5%9F-s%C3%BCrkit-748538320/" target="_blank"
-                            rel="noopener noreferrer">LinkedIn</a></li>
+                            rel="me noopener noreferrer">LinkedIn<span class="visually-hidden"
+                                data-i18n="external.newTab"> (opens in a new tab)</span></a></li>
                     <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
                 </ul>
 
@@ -98,7 +176,7 @@
                             </span>
                             <span data-i18n="cv.english">English CV</span>
                         </a>
-                        <p class="cv-download-meta" data-i18n="cv.englishMeta">PDF · 1 page · 49 KB</p>
+                        <p class="cv-download-meta" data-i18n="cv.englishMeta">PDF · 1 page · 30 KB</p>
                     </div>
 
                     <div class="cv-download-option">
@@ -115,7 +193,7 @@
                             </span>
                             <span data-i18n="cv.turkish">Turkish CV</span>
                         </a>
-                        <p class="cv-download-meta" data-i18n="cv.turkishMeta">PDF · 1 page · 51 KB</p>
+                        <p class="cv-download-meta" data-i18n="cv.turkishMeta">PDF · 1 page · 31 KB</p>
                     </div>
                 </div>
             </div>
@@ -149,7 +227,7 @@
             <section class="content-section" id="skills" aria-labelledby="skills-title">
                 <h2 id="skills-title" data-i18n="skills.title">Technologies and skills</h2>
                 <p class="section-intro" data-i18n="skills.intro">The fundamentals I use and study:</p>
-                <ul class="tag-list" aria-label="Technologies and skills"
+                <ul class="tag-list" role="list" aria-label="Technologies and skills"
                     data-i18n-aria-label="skills.listLabel">
                     <li>Python</li>
                     <li data-i18n="skills.dataAnalysis">Data Analysis</li>
@@ -167,66 +245,116 @@
                 <p class="section-intro" data-i18n="projects.intro">A few projects I have built to apply what I learn.</p>
 
                 <div class="project-list">
-                    <article class="project-item">
-                        <h3>BütçeDostum</h3>
+                    <article class="project-item" id="project-budget" aria-labelledby="project-budget-title">
+                        <h3 id="project-budget-title">BütçeDostum</h3>
                         <p data-i18n="projects.budgetDescription">A simple budget application I built to make tracking income and expenses easier.</p>
-                        <ul class="project-tech" aria-label="BütçeDostum technologies"
+                        <ul class="project-tech" role="list" aria-label="BütçeDostum technologies"
                             data-i18n-aria-label="projects.budgetTechLabel">
                             <li>Next.js</li>
                             <li>TypeScript</li>
                             <li>Prisma ORM</li>
                             <li>SQLite</li>
                         </ul>
+                        <dl class="project-meta">
+                            <div>
+                                <dt data-i18n="projects.statusLabel">Status</dt>
+                                <dd data-i18n="projects.statusLive">Live</dd>
+                            </div>
+                        </dl>
+                        <ul class="project-actions" role="list" aria-label="BütçeDostum project links"
+                            data-i18n-aria-label="projects.budgetActionsLabel">
+                            <li><a class="project-link" href="https://butcedostum.vercel.app/" target="_blank"
+                                    rel="noopener noreferrer" aria-label="BütçeDostum live demo (opens in a new tab)"
+                                    data-i18n-aria-label="projects.budgetLiveLabel"><span data-i18n="projects.liveDemo">Live demo</span>
+                                    <span aria-hidden="true">↗</span><span class="visually-hidden"
+                                        data-i18n="external.newTab"> (opens in a new tab)</span></a></li>
+                            <li><a class="project-link" href="https://github.com/barissurkit/butcedostum" target="_blank"
+                                    rel="noopener noreferrer" aria-label="BütçeDostum source code (opens in a new tab)"
+                                    data-i18n-aria-label="projects.budgetSourceLabel"><span data-i18n="projects.sourceCode">Source code</span>
+                                    <span aria-hidden="true">↗</span><span class="visually-hidden"
+                                        data-i18n="external.newTab"> (opens in a new tab)</span></a></li>
+                        </ul>
                     </article>
 
-                    <article class="project-item">
-                        <h3 data-i18n="projects.portfolioTitle">Personal Portfolio</h3>
+                    <article class="project-item" id="project-portfolio" aria-labelledby="project-portfolio-title">
+                        <h3 id="project-portfolio-title" data-i18n="projects.portfolioTitle">Personal Portfolio</h3>
                         <p data-i18n="projects.portfolioDescription">This personal website where I share my projects, what I learn, and my progress.</p>
-                        <ul class="project-tech" aria-label="Portfolio technologies"
+                        <ul class="project-tech" role="list" aria-label="Portfolio technologies"
                             data-i18n-aria-label="projects.portfolioTechLabel">
                             <li>HTML</li>
                             <li>CSS</li>
                             <li>JavaScript</li>
                         </ul>
-                        <a class="project-link" href="https://github.com/barissurkit/portfolio-site" target="_blank"
-                            rel="noopener noreferrer"><span data-i18n="projects.viewOnGitHub">View on GitHub</span>
-                            <span aria-hidden="true">→</span></a>
+                        <dl class="project-meta">
+                            <div>
+                                <dt data-i18n="projects.statusLabel">Status</dt>
+                                <dd data-i18n="projects.statusLive">Live</dd>
+                            </div>
+                        </dl>
+                        <ul class="project-actions" role="list" aria-label="Personal Portfolio project links"
+                            data-i18n-aria-label="projects.portfolioActionsLabel">
+                            <li><a class="project-link" href="https://barissurkit.com/" target="_blank"
+                                    rel="noopener noreferrer" aria-label="Personal Portfolio live demo (opens in a new tab)"
+                                    data-i18n-aria-label="projects.portfolioLiveLabel"><span data-i18n="projects.liveDemo">Live demo</span>
+                                    <span aria-hidden="true">↗</span><span class="visually-hidden"
+                                        data-i18n="external.newTab"> (opens in a new tab)</span></a></li>
+                            <li><a class="project-link" href="https://github.com/barissurkit/portfolio-site" target="_blank"
+                                    rel="noopener noreferrer" aria-label="Personal Portfolio source code (opens in a new tab)"
+                                    data-i18n-aria-label="projects.portfolioSourceLabel"><span data-i18n="projects.sourceCode">Source code</span>
+                                    <span aria-hidden="true">↗</span><span class="visually-hidden"
+                                        data-i18n="external.newTab"> (opens in a new tab)</span></a></li>
+                        </ul>
                     </article>
 
-                    <article class="project-item">
-                        <h3 data-i18n="projects.pythonTitle">Mini Python Scripts</h3>
+                    <article class="project-item" id="project-python" aria-labelledby="project-python-title">
+                        <h3 id="project-python-title" data-i18n="projects.pythonTitle">Mini Python Scripts</h3>
                         <p data-i18n="projects.pythonDescription">Scripts I write to practise algorithms and simplify small everyday tasks.</p>
-                        <ul class="project-tech" aria-label="Python script technologies"
+                        <ul class="project-tech" role="list" aria-label="Python script technologies"
                             data-i18n-aria-label="projects.pythonTechLabel">
                             <li>Python</li>
                             <li data-i18n="skills.algorithm">Algorithms</li>
                         </ul>
+                        <dl class="project-meta">
+                            <div>
+                                <dt data-i18n="projects.statusLabel">Status</dt>
+                                <dd data-i18n="projects.noDedicatedRepository">No dedicated repository</dd>
+                            </div>
+                        </dl>
                     </article>
                 </div>
 
                 <a class="all-projects-link" href="https://github.com/barissurkit" target="_blank"
-                    rel="noopener noreferrer"><span data-i18n="projects.allOnGitHub">See all my work on GitHub</span>
-                    <span aria-hidden="true">→</span></a>
+                    rel="me noopener noreferrer"><span data-i18n="projects.allOnGitHub">See all my work on GitHub</span>
+                    <span aria-hidden="true">↗</span><span class="visually-hidden"
+                        data-i18n="external.newTab"> (opens in a new tab)</span></a>
             </section>
 
             <section class="content-section" id="contact" aria-labelledby="contact-title">
                 <h2 id="contact-title" data-i18n="contact.title">Contact</h2>
                 <p class="section-intro" data-i18n="contact.intro">Feel free to get in touch if you would like to ask something or discuss a project.</p>
 
-                <ul class="contact-list">
+                <ul class="contact-list" role="list">
                     <li>
-                        <span data-i18n="contact.email">Email</span>
-                        <a href="mailto:barissurkitdev@gmail.com">barissurkitdev@gmail.com</a>
+                        <span class="contact-label" data-i18n="contact.email">Email</span>
+                        <div class="contact-value">
+                            <a href="mailto:barissurkitdev@gmail.com" data-email-address>barissurkitdev@gmail.com</a>
+                            <button class="copy-email-button" type="button" data-copy-email hidden
+                                data-i18n="contact.copyEmail">Copy</button>
+                            <span class="copy-status" role="status" aria-live="polite" aria-atomic="true"
+                                data-copy-status></span>
+                        </div>
                     </li>
                     <li>
-                        <span>GitHub</span>
+                        <span class="contact-label">GitHub</span>
                         <a href="https://github.com/barissurkit" target="_blank"
-                            rel="noopener noreferrer">github.com/barissurkit</a>
+                            rel="me noopener noreferrer">github.com/barissurkit<span class="visually-hidden"
+                                data-i18n="external.newTab"> (opens in a new tab)</span></a>
                     </li>
                     <li>
-                        <span>LinkedIn</span>
+                        <span class="contact-label">LinkedIn</span>
                         <a href="https://www.linkedin.com/in/bar%C4%B1%C5%9F-s%C3%BCrkit-748538320/" target="_blank"
-                            rel="noopener noreferrer" data-i18n="contact.linkedinProfile">LinkedIn profile</a>
+                            rel="me noopener noreferrer"><span data-i18n="contact.linkedinProfile">LinkedIn profile</span><span
+                                class="visually-hidden" data-i18n="external.newTab"> (opens in a new tab)</span></a>
                     </li>
                 </ul>
             </section>

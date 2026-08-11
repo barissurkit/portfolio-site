@@ -11,6 +11,9 @@
     const navMenu = document.querySelector("[data-nav-menu]");
     const menuSummary = navMenu?.querySelector("summary");
     const navLinks = navMenu?.querySelectorAll("a[href^='#']") ?? [];
+    const copyEmailButton = document.querySelector("[data-copy-email]");
+    const emailLink = document.querySelector("[data-email-address]");
+    const copyStatus = document.querySelector("[data-copy-status]");
 
     const translations = {
         tr: {
@@ -18,6 +21,9 @@
             "meta.description": "Bilgisayar mühendisliği öğrencisi Barış Sürkit'in ilgi alanları, seçili projeleri ve iletişim bilgileri.",
             "meta.ogDescription": "Barış Sürkit'in yazılım, veri analizi ve makine öğrenmesi üzerine çalışmaları.",
             "meta.locale": "tr_TR",
+            "meta.alternateLocale": "en_US",
+            "meta.imageAlt": "Barış Sürkit portresi",
+            "external.newTab": " (yeni sekmede açılır)",
             skipLink: "Ana içeriğe geç",
             brandLabel: "Barış Sürkit ana sayfa",
             preferencesLabel: "Görünüm ve dil ayarları",
@@ -30,12 +36,13 @@
             "cv.turkish": "Türkçe CV",
             "cv.englishLabel": "İngilizce CV'yi indir",
             "cv.turkishLabel": "Türkçe CV'yi indir",
-            "cv.englishMeta": "PDF · 1 sayfa · 49 KB",
-            "cv.turkishMeta": "PDF · 1 sayfa · 51 KB",
+            "cv.englishMeta": "PDF · 1 sayfa · 30 KB",
+            "cv.turkishMeta": "PDF · 1 sayfa · 31 KB",
             menu: "Menü",
             navLabel: "Ana menü",
             "nav.home": "Ana Sayfa",
             "nav.about": "Hakkımda",
+            "nav.skills": "Yetenekler",
             "nav.projects": "Projeler",
             "nav.contact": "İletişim",
             "hero.eyebrow": "Bilgisayar Mühendisliği Öğrencisi",
@@ -59,17 +66,30 @@
             "projects.intro": "Öğrendiklerimi uygulamak için geliştirdiğim çalışmalardan bazıları.",
             "projects.budgetDescription": "Gelir ve giderleri daha kolay takip etmek için hazırladığım sade bir bütçe uygulaması.",
             "projects.budgetTechLabel": "BütçeDostum teknolojileri",
+            "projects.budgetActionsLabel": "BütçeDostum proje bağlantıları",
+            "projects.budgetLiveLabel": "BütçeDostum canlı demosu (yeni sekmede açılır)",
+            "projects.budgetSourceLabel": "BütçeDostum kaynak kodu (yeni sekmede açılır)",
             "projects.portfolioTitle": "Kişisel Portfolyo",
             "projects.portfolioDescription": "Projelerimi, öğrendiklerimi ve gelişim sürecimi paylaştığım bu kişisel web sitesi.",
             "projects.portfolioTechLabel": "Portfolyo teknolojileri",
-            "projects.viewOnGitHub": "GitHub'da görüntüle",
+            "projects.portfolioActionsLabel": "Kişisel Portfolyo proje bağlantıları",
+            "projects.portfolioLiveLabel": "Kişisel Portfolyo canlı demosu (yeni sekmede açılır)",
+            "projects.portfolioSourceLabel": "Kişisel Portfolyo kaynak kodu (yeni sekmede açılır)",
             "projects.pythonTitle": "Mini Python Scriptleri",
             "projects.pythonDescription": "Algoritma pratiği yapmak ve günlük küçük işleri kolaylaştırmak için yazdığım scriptler.",
             "projects.pythonTechLabel": "Python script teknolojileri",
+            "projects.statusLabel": "Durum",
+            "projects.statusLive": "Yayında",
+            "projects.noDedicatedRepository": "Özel bir depo bağlantısı yok",
+            "projects.liveDemo": "Canlı demo",
+            "projects.sourceCode": "Kaynak kodu",
             "projects.allOnGitHub": "Tüm çalışmalarımı GitHub'da gör",
             "contact.title": "İletişim",
             "contact.intro": "Bir şey sormak veya bir proje üzerine konuşmak istersen bana ulaşabilirsin.",
             "contact.email": "E-posta",
+            "contact.copyEmail": "Kopyala",
+            "contact.copySuccess": "E-posta adresi kopyalandı.",
+            "contact.copyError": "Kopyalanamadı; adresi seçerek kopyalayabilirsin.",
             "contact.linkedinProfile": "LinkedIn profili",
             "footer.backToTop": "Başa dön"
         },
@@ -78,6 +98,9 @@
             "meta.description": "The interests, selected projects, and contact details of computer engineering student Barış Sürkit.",
             "meta.ogDescription": "Barış Sürkit's work in software development, data analysis, and machine learning.",
             "meta.locale": "en_US",
+            "meta.alternateLocale": "tr_TR",
+            "meta.imageAlt": "Portrait of Barış Sürkit",
+            "external.newTab": " (opens in a new tab)",
             skipLink: "Skip to main content",
             brandLabel: "Barış Sürkit home page",
             preferencesLabel: "Appearance and language settings",
@@ -90,12 +113,13 @@
             "cv.turkish": "Turkish CV",
             "cv.englishLabel": "Download the English CV",
             "cv.turkishLabel": "Download the Turkish CV",
-            "cv.englishMeta": "PDF · 1 page · 49 KB",
-            "cv.turkishMeta": "PDF · 1 page · 51 KB",
+            "cv.englishMeta": "PDF · 1 page · 30 KB",
+            "cv.turkishMeta": "PDF · 1 page · 31 KB",
             menu: "Menu",
             navLabel: "Main navigation",
             "nav.home": "Home",
             "nav.about": "About",
+            "nav.skills": "Skills",
             "nav.projects": "Projects",
             "nav.contact": "Contact",
             "hero.eyebrow": "Computer Engineering Student",
@@ -119,17 +143,30 @@
             "projects.intro": "A few projects I have built to apply what I learn.",
             "projects.budgetDescription": "A simple budget application I built to make tracking income and expenses easier.",
             "projects.budgetTechLabel": "BütçeDostum technologies",
+            "projects.budgetActionsLabel": "BütçeDostum project links",
+            "projects.budgetLiveLabel": "BütçeDostum live demo (opens in a new tab)",
+            "projects.budgetSourceLabel": "BütçeDostum source code (opens in a new tab)",
             "projects.portfolioTitle": "Personal Portfolio",
             "projects.portfolioDescription": "This personal website where I share my projects, what I learn, and my progress.",
             "projects.portfolioTechLabel": "Portfolio technologies",
-            "projects.viewOnGitHub": "View on GitHub",
+            "projects.portfolioActionsLabel": "Personal Portfolio project links",
+            "projects.portfolioLiveLabel": "Personal Portfolio live demo (opens in a new tab)",
+            "projects.portfolioSourceLabel": "Personal Portfolio source code (opens in a new tab)",
             "projects.pythonTitle": "Mini Python Scripts",
             "projects.pythonDescription": "Scripts I write to practise algorithms and simplify small everyday tasks.",
             "projects.pythonTechLabel": "Python script technologies",
+            "projects.statusLabel": "Status",
+            "projects.statusLive": "Live",
+            "projects.noDedicatedRepository": "No dedicated repository",
+            "projects.liveDemo": "Live demo",
+            "projects.sourceCode": "Source code",
             "projects.allOnGitHub": "See all my work on GitHub",
             "contact.title": "Contact",
             "contact.intro": "Feel free to get in touch if you would like to ask something or discuss a project.",
             "contact.email": "Email",
+            "contact.copyEmail": "Copy",
+            "contact.copySuccess": "Email address copied.",
+            "contact.copyError": "Could not copy; select the address to copy it.",
             "contact.linkedinProfile": "LinkedIn profile",
             "footer.backToTop": "Back to top"
         }
@@ -156,6 +193,9 @@
         ? root.dataset.theme
         : systemTheme.matches ? "dark" : "light";
     let currentLanguage = "en";
+    let copyStatusKey = null;
+    let copyStatusTimer = null;
+    let isCopyingEmail = false;
 
     const updateThemeControl = () => {
         const isDark = currentTheme === "dark";
@@ -164,7 +204,6 @@
 
         if (themeButton) {
             themeButton.setAttribute("aria-label", label);
-            themeButton.setAttribute("aria-pressed", String(isDark));
             themeButton.title = label;
         }
 
@@ -216,6 +255,10 @@
             }
         });
 
+        if (copyStatus && copyStatusKey) {
+            copyStatus.textContent = dictionary[copyStatusKey];
+        }
+
         if (languageButton) {
             const targetLanguage = currentLanguage === "tr" ? "en" : "tr";
             const label = dictionary[currentLanguage === "tr" ? "language.toEnglish" : "language.toTurkish"];
@@ -235,6 +278,72 @@
     languageButton?.addEventListener("click", () => {
         applyLanguage(currentLanguage === "tr" ? "en" : "tr");
     });
+
+    const showCopyStatus = (key) => {
+        if (!copyStatus) {
+            return;
+        }
+
+        copyStatusKey = key;
+        copyStatus.textContent = translations[currentLanguage][key];
+        window.clearTimeout(copyStatusTimer);
+        copyStatusTimer = window.setTimeout(() => {
+            copyStatusKey = null;
+            copyStatus.textContent = "";
+        }, 3500);
+    };
+
+    const copyWithFallback = (value) => {
+        const previousFocus = document.activeElement;
+        const textArea = document.createElement("textarea");
+        textArea.value = value;
+        textArea.setAttribute("readonly", "");
+        textArea.style.position = "fixed";
+        textArea.style.opacity = "0";
+        document.body.append(textArea);
+        textArea.select();
+        let copied = false;
+
+        try {
+            copied = document.execCommand("copy");
+        } finally {
+            textArea.remove();
+            previousFocus?.focus();
+        }
+
+        if (!copied) {
+            throw new Error("Copy command was not successful.");
+        }
+    };
+
+    if (copyEmailButton && emailLink) {
+        copyEmailButton.hidden = false;
+        copyEmailButton.addEventListener("click", async () => {
+            if (isCopyingEmail) {
+                return;
+            }
+
+            const emailAddress = decodeURIComponent(emailLink.href.replace(/^mailto:/, "").split("?")[0]);
+            isCopyingEmail = true;
+
+            try {
+                if (navigator.clipboard?.writeText && window.isSecureContext) {
+                    try {
+                        await navigator.clipboard.writeText(emailAddress);
+                    } catch {
+                        copyWithFallback(emailAddress);
+                    }
+                } else {
+                    copyWithFallback(emailAddress);
+                }
+                showCopyStatus("contact.copySuccess");
+            } catch {
+                showCopyStatus("contact.copyError");
+            } finally {
+                isCopyingEmail = false;
+            }
+        });
+    }
 
     const handleSystemThemeChange = (event) => {
         if (!hasSavedTheme) {
@@ -277,6 +386,102 @@
         });
 
         navMenu.open = desktopQuery.matches;
+    }
+
+    const navigationTargets = Array.from(navLinks)
+        .map((link) => {
+            const section = document.querySelector(link.hash);
+            return section ? { link, section } : null;
+        })
+        .filter(Boolean);
+
+    const setActiveNavigation = (sectionId) => {
+        navigationTargets.forEach(({ link, section }) => {
+            if (section.id === sectionId) {
+                link.setAttribute("aria-current", "location");
+            } else {
+                link.removeAttribute("aria-current");
+            }
+        });
+    };
+
+    if (navigationTargets.length) {
+        const syncNavigationWithHash = () => {
+            const target = navigationTargets.find(({ link }) => link.hash === window.location.hash);
+            if (target) {
+                setActiveNavigation(target.section.id);
+            }
+        };
+
+        const hashTarget = navigationTargets.find(({ link }) => link.hash === window.location.hash);
+        setActiveNavigation(hashTarget?.section.id ?? navigationTargets[0].section.id);
+
+        navigationTargets.forEach(({ link, section }) => {
+            link.addEventListener("click", () => setActiveNavigation(section.id));
+        });
+
+        if ("IntersectionObserver" in window) {
+            let sectionObserver = null;
+            let observerResizeFrame = null;
+
+            const isAtPageBottom = () => {
+                const pageBottom = Math.ceil(window.scrollY + window.innerHeight);
+                return pageBottom >= document.documentElement.scrollHeight - 1;
+            };
+
+            const setLastSectionAtPageBottom = () => {
+                if (isAtPageBottom()) {
+                    setActiveNavigation(navigationTargets.at(-1).section.id);
+                    return true;
+                }
+                return false;
+            };
+
+            const observeNavigationSections = () => {
+                sectionObserver?.disconnect();
+                const visibleSections = new Set();
+                const markerPosition = Math.min(window.innerHeight * 0.25, 220);
+                const bottomMargin = Math.max(0, window.innerHeight - markerPosition - 1);
+
+                sectionObserver = new IntersectionObserver((entries) => {
+                    entries.forEach((entry) => {
+                        if (entry.isIntersecting) {
+                            visibleSections.add(entry.target.id);
+                        } else {
+                            visibleSections.delete(entry.target.id);
+                        }
+                    });
+
+                    if (setLastSectionAtPageBottom()) {
+                        return;
+                    }
+
+                    const activeTarget = navigationTargets
+                        .filter(({ section }) => visibleSections.has(section.id))[0];
+
+                    if (activeTarget) {
+                        setActiveNavigation(activeTarget.section.id);
+                    }
+                }, {
+                    rootMargin: `-${markerPosition}px 0px -${bottomMargin}px 0px`,
+                    threshold: 0
+                });
+
+                navigationTargets.forEach(({ section }) => sectionObserver.observe(section));
+            };
+
+            observeNavigationSections();
+            window.addEventListener("scroll", setLastSectionAtPageBottom, { passive: true });
+            window.addEventListener("resize", () => {
+                window.cancelAnimationFrame(observerResizeFrame);
+                observerResizeFrame = window.requestAnimationFrame(observeNavigationSections);
+            }, { passive: true });
+        }
+
+        window.addEventListener("hashchange", syncNavigationWithHash);
+        window.addEventListener("load", () => {
+            window.requestAnimationFrame(syncNavigationWithHash);
+        }, { once: true });
     }
 
     applyTheme(currentTheme);

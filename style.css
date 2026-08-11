@@ -97,6 +97,18 @@ summary {
     border-radius: 3px;
 }
 
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
 #main-content:focus {
     outline: none;
 }
@@ -214,7 +226,7 @@ section[id] {
 .nav-menu:not([open]) > .site-nav {
     display: flex;
     align-items: center;
-    gap: 24px;
+    gap: clamp(14px, 2.4vw, 24px);
 }
 
 .site-nav a {
@@ -222,6 +234,13 @@ section[id] {
     font-size: 0.82rem;
     font-weight: 650;
     text-decoration: none;
+}
+
+.site-nav a[aria-current="location"] {
+    color: var(--text);
+    text-decoration-color: currentColor;
+    text-decoration-line: underline;
+    text-decoration-thickness: 1px;
 }
 
 .hero {
@@ -367,7 +386,7 @@ section[id] {
 }
 
 .cv-list dt,
-.contact-list span {
+.contact-label {
     color: var(--muted);
     font-size: 0.78rem;
     font-weight: 700;
@@ -384,6 +403,35 @@ section[id] {
     width: fit-content;
     max-width: 100%;
     overflow-wrap: anywhere;
+}
+
+.contact-value {
+    display: flex;
+    min-width: 0;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px 12px;
+}
+
+.copy-email-button {
+    min-height: 32px;
+    cursor: pointer;
+    padding: 2px 9px;
+    border: 1px solid var(--line);
+    border-radius: 0;
+    background: transparent;
+    color: var(--link);
+    font-size: 0.76rem;
+    font-weight: 700;
+    transition:
+        background-color var(--transition),
+        border-color var(--transition),
+        color var(--transition);
+}
+
+.copy-status {
+    color: var(--muted);
+    font-size: 0.76rem;
 }
 
 .tag-list {
@@ -446,9 +494,40 @@ section[id] {
     content: "·";
 }
 
+.project-meta {
+    margin-top: 10px;
+}
+
+.project-meta > div {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+}
+
+.project-meta dt {
+    color: var(--muted);
+    font-size: 0.74rem;
+    font-weight: 700;
+}
+
+.project-meta dt::after {
+    content: ":";
+}
+
+.project-meta dd {
+    color: var(--text-soft);
+    font-size: 0.78rem;
+}
+
+.project-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 20px;
+    margin-top: 16px;
+}
+
 .project-link {
     display: inline-block;
-    margin-top: 16px;
 }
 
 .all-projects-link {
@@ -477,12 +556,18 @@ section[id] {
     }
 
     .brand:hover,
-    .site-nav a:hover {
+    .site-nav a:not([aria-current="location"]):hover {
         color: var(--text);
         text-decoration: none;
     }
 
     .preference-button:hover {
+        border-color: var(--accent);
+        background: var(--surface);
+        color: var(--text);
+    }
+
+    .copy-email-button:hover {
         border-color: var(--accent);
         background: var(--surface);
         color: var(--text);
@@ -537,14 +622,14 @@ section[id] {
         list-style: none;
     }
 
-    .menu-toggle::after {
+    .menu-indicator::before {
         content: "+";
         font-size: 1rem;
         font-weight: 400;
         line-height: 1;
     }
 
-    .nav-menu[open] .menu-toggle::after {
+    .nav-menu[open] .menu-indicator::before {
         content: "−";
     }
 
@@ -610,6 +695,10 @@ section[id] {
         padding-block: 13px;
     }
 
+    .contact-value {
+        align-items: flex-start;
+    }
+
     .project-list {
         margin-top: 28px;
     }
@@ -627,6 +716,13 @@ section[id] {
     }
 }
 
+@media (max-width: 380px) {
+    .cv-download-block {
+        width: min(100%, 240px);
+        grid-template-columns: 1fr;
+    }
+}
+
 @media (prefers-reduced-motion: no-preference) {
     html {
         scroll-behavior: smooth;
@@ -641,7 +737,12 @@ section[id] {
     a,
     .cv-download-button,
     .preference-button,
+    .copy-email-button,
     .skip-link {
         transition: none;
+    }
+
+    .cv-download-button:hover {
+        transform: none;
     }
 }
