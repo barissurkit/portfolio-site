@@ -26,9 +26,62 @@
     "stack.label":"05 / TEKNOLOJİLER", "stack.title":"Kullandığım teknolojiler", "stack.frontend":"Frontend", "stack.backend":"Backend ve API'ler", "stack.retrieval":"Veri / Retrieval", "stack.tools":"Araçlar ve Deployment",
     "contact.title":"İletişime geçelim.", "contact.email":"E-posta ↗", "projects.title":"Projeler", "projects.intro":"Seçili yazılım, yapay zekâ ve veri projeleri."
   });
+  Object.assign(tr, {
+    "hero.role":"BİLGİSAYAR MÜHENDİSLİĞİ ÖĞRENCİSİ",
+    "hero.intro":"Trakya Üniversitesi'nde Bilgisayar Mühendisliği okurken yapay zekâ, veri ve modern web teknolojileri üzerine projeler geliştiriyorum.",
+    "featured.intro":"Canlı web ve seçili belgeler üzerinde araştırma yapmayı sağlayan, kaynak odaklı bir çalışma alanı.",
+    "featured.description":"Yanıtların dayandığı kaynakları incelemeyi kolaylaştıran bu proje; streaming yanıtları, devam sorularını ve Web, Dosyalar ile Hibrit araştırma modlarını bir araya getiriyor.",
+    "ai.one":"Canlı web ve seçili belgelerde retrieval",
+    "ai.two":"Her mesaja ait kaynaklar ve ayrı bir kaynak paneli",
+    "ai.three":"Tarayıcıda saklanan geçmiş ve SSE ile streaming yanıtlar",
+    "other.title":"Diğer projeler",
+    "budget.copy":"Gelir ve giderleri kategorilere ayırarak takip etmeyi sağlayan full-stack kişisel bütçe uygulaması.",
+    "portfolio.copy":"Projelerimi ve mühendislik çalışmalarımı paylaştığım erişilebilir, iki dilli portfolyo sitesi.",
+    "about.copy":"Trakya Üniversitesi Bilgisayar Mühendisliği öğrencisiyim. Veri analizinden full-stack uygulamalara ve yapay zekâ destekli araştırma araçlarına kadar farklı alanlarda projeler geliştirerek öğreniyorum.",
+    "journey.title":"Deneyim ve eğitim",
+    "journey.eduCopy":"Trakya Üniversitesi · Eğitim devam ediyor",
+    "stack.title":"Kullandığım teknolojiler",
+    "contact.title":"İletişime geçelim.",
+    "contact.copy":"Yazılım, yapay zekâ ve birlikte üretme fırsatları hakkında konuşmak için bana ulaşabilirsiniz.",
+    "projects.kicker":"PROJELER",
+    "projects.intro":"Yazılım, yapay zekâ ve veri alanlarından seçili projeler.",
+    "projects.featured":"ÖNE ÇIKAN / YAPAY ZEKÂ",
+    "projects.description":"Canlı web aramasını, seçili belgelerde retrieval'ı ve hibrit RAG yaklaşımını bir araya getiren kaynak odaklı araştırma uygulaması.",
+    "projects.case":"Vaka çalışması →",
+    "projects.live":"Canlı demo ↗",
+    "projects.source":"Kaynak kodu ↗",
+    "projects.budgetDescription":"Next.js, TypeScript, Prisma ve SQLite ile geliştirilen full-stack kişisel bütçe takip uygulaması.",
+    "projects.portfolioDescription":"Projeleri ve mühendislik çalışmalarını öne çıkaran erişilebilir, iki dilli portfolyo.",
+    "case.lede":"Canlı web ve seçili belgelerde araştırma yapmayı, ardından her yanıtın dayandığı kaynakları incelemeyi sağlayan kaynak odaklı bir çalışma alanı.",
+    "case.overviewTitle":"Araştırma ve kaynaklar aynı yerde.",
+    "case.overviewCopy":"AI Search Engine, Tavily üzerinden canlı web retrieval ile seçili PDF, TXT, Markdown ve DOCX belgelerini tek bir konuşmada birleştiriyor. Yanıtlar aşamalı olarak stream edilirken her mesajın kaynak listesi korunuyor.",
+    "case.archTitle":"Tek yanıt modeli, iki farklı kanıt yaşam döngüsü.",
+    "case.frontendCopy":"React/Vite; çalışma alanını, IndexedDB'de tutulan yerel geçmişi, deep linkleri ve streaming render sürecini yönetiyor.",
+    "case.backendCopy":"FastAPI; arama, yanıt üretimi, streaming, belge yükleme, silme ve orkestrasyon işlemlerini yönetiyor.",
+    "case.webCopy":"Tavily araması → fetch/extract → chunk → istek kapsamlı Qdrant retrieval → cleanup.",
+    "case.fileCopy":"Seçili konuşma belgeleri çıkarılır, kalıcı olarak indekslenir ve yalnızca ilgili kapsam içinde retrieve edilir.",
+    "case.generationCopy":"Kaynakları içeren context, Ollama sağlayıcısına aktarılır; yanıt ve kaynaklar birlikte döner.",
+    "case.sourcesCopy":"Her mesaja ait Web ve Dosya kaynakları masaüstünde panel, mobilde drawer üzerinden incelenebilir.",
+    "case.scoped":"Kapsam kontrollü retrieval",
+    "case.scopedCopy":"Web kaynakları her istek için geçicidir; belge chunk'ları ise cleanup yapılana kadar seçili konuşmaya bağlı kalır.",
+    "case.citations":"Arayüzün parçası olan citation'lar",
+    "case.citationsCopy":"Metin içindeki citation işaretleri korunmuş kaynak listelerine bağlanarak dayanakları incelemeyi kolaylaştırır.",
+    "case.streamingCopy":"POST + fetch ve ReadableStream üzerinden SSE parsing kullanılarak ilerleme bilgisi ve yanıt parçaları geldikçe render edilir.",
+    "case.evaluationCopy":"Deterministik offline quality gate 29/29 PASS sonucunu veriyor. Citation metrikleri olgusal doğruluk iddiası değil, yapısal regresyon kontrolüdür.",
+    "case.try":"CANLI SÜRÜM",
+    "case.tryTitle":"Uygulamayı inceleyin.",
+    "case.tryCopy":"Production ortamında frontend Vercel'de, FastAPI backend ise Render'da çalışıyor. Ücretsiz backend, bir süre kullanılmadığında geç açılabilir.",
+    "case.open":"Canlı demoyu aç ↗",
+    "notfound.title":"Bu sayfa bulunamadı.",
+    "notfound.copy":"Aradığınız sayfa kaldırılmış veya başka bir adrese taşınmış olabilir.",
+    "alt.ai":"Yanıtı, citation'ları ve kaynakları gösteren AI Search Engine çalışma alanı",
+    "alt.budget":"BütçeDostum kişisel bütçe uygulaması ekranı",
+    "alt.portfolio":"Barış Sürkit kişisel portfolyo sitesi"
+  });
   const lang = localStorage.getItem("portfolio-language") || "en";
   const applyLanguage = () => {
     root.lang = lang;
+    const brand = document.querySelector(".brand"); if (brand) brand.innerHTML = "Barış Sürkit<span>.</span>";
     if (lang === "tr") document.querySelectorAll("[data-i18n]").forEach((el) => { const value = tr[el.dataset.i18n]; if (value) el.innerHTML = value; });
     if (lang === "tr") document.querySelectorAll("[data-i18n-content]").forEach((el) => { const value = tr[el.dataset.i18nContent]; if (value) el.content = value; });
     if (lang === "tr") document.querySelectorAll("[data-i18n-alt]").forEach((el) => { const value = tr[el.dataset.i18nAlt]; if (value) el.alt = value; });
@@ -37,12 +90,15 @@
     if (lang === "tr" && document.querySelector("[data-page-title='meta.title']")) document.title = tr["meta.homeTitle"];
     if (lang === "tr") document.querySelectorAll("[data-i18n-content='meta.description']").forEach((el) => { el.content = tr["meta.homeDescription"]; });
     if (lang === "tr") { document.querySelector(".skip-link")?.replaceChildren("İçeriğe geç"); if (menuButton) menuButton.textContent = "Menü"; }
+    if (nav) nav.setAttribute("aria-label", lang === "tr" ? "Ana navigasyon" : "Main navigation");
+    const socialNav = document.querySelector(".social-links"); if (socialNav) socialNav.setAttribute("aria-label", lang === "tr" ? "Profesyonel bağlantılar" : "Professional profiles");
+    const caseLink = document.querySelector(".shot[aria-label]"); if (caseLink) caseLink.setAttribute("aria-label", lang === "tr" ? "AI Search Engine vaka çalışması" : "AI Search Engine case study");
     const isDark = root.dataset.theme === "dark";
     if (themeButton) themeButton.setAttribute("aria-label", lang === "tr" ? (isDark ? "Açık temaya geç" : "Koyu temaya geç") : (isDark ? "Switch to light theme" : "Switch to dark theme"));
     const themeIcon = document.querySelector("[data-theme-icon]"); if (themeIcon) themeIcon.textContent = isDark ? "☀" : "☾"; else if (themeButton) themeButton.textContent = isDark ? "☀" : "☾";
     if (languageButton) { languageButton.textContent = lang === "en" ? "TR" : "EN"; languageButton.lang = lang === "en" ? "tr" : "en"; languageButton.setAttribute("aria-label", lang === "en" ? "Türkçeye geç" : "Switch to English"); }
   };
-  themeButton?.addEventListener("click", () => { const theme = root.dataset.theme === "dark" ? "light" : "dark"; root.dataset.theme = theme; localStorage.setItem("portfolio-theme", theme); if (themeColor) themeColor.content = theme === "dark" ? "#101211" : "#f7f7f5"; applyLanguage(); });
+  themeButton?.addEventListener("click", () => { const theme = root.dataset.theme === "dark" ? "light" : "dark"; root.dataset.theme = theme; localStorage.setItem("portfolio-theme", theme); if (themeColor) themeColor.content = theme === "dark" ? "#101419" : "#f7f8f9"; applyLanguage(); });
   languageButton?.addEventListener("click", () => { localStorage.setItem("portfolio-language", lang === "en" ? "tr" : "en"); location.reload(); });
   menuButton?.addEventListener("click", () => { const open = nav?.classList.toggle("open"); menuButton.setAttribute("aria-expanded", String(open)); });
   nav?.querySelectorAll("a").forEach((link) => link.addEventListener("click", () => { nav.classList.remove("open"); menuButton?.setAttribute("aria-expanded", "false"); }));
