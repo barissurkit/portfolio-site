@@ -1,7 +1,8 @@
 [data-theme=dark] .primary{color:#101419}
-.personal-hero{margin-inline:auto;width:100%}
-.social-links a.social-icon{display:grid;place-items:center;width:40px;height:40px;border:1px solid var(--line);border-radius:9px;background:var(--surface);color:var(--muted)}
-.social-links a.social-icon:hover{border-color:var(--accent);background:var(--accent-soft);color:var(--accent);text-decoration:none;transform:translateY(-1px)}
+main .personal-hero{margin-inline:auto;width:100%;max-width:720px;padding:88px 0 74px;text-align:center}
+.personal-hero h1{margin-inline:auto}.personal-hero .lede{margin:14px auto 0;max-width:620px}.hero-role{margin:12px 0 0;color:var(--accent);font-size:.92rem;font-weight:700}.hero-education{margin:12px 0 0;color:var(--muted);font-size:.82rem}.personal-hero .hero-groups{justify-content:center;flex-direction:column;gap:16px;margin-top:26px}.personal-hero .cv-actions,.personal-hero .social-links{justify-content:center}
+.social-links a.social-icon{display:grid;place-items:center;width:40px;height:40px;color:var(--muted)}
+.social-links a.social-icon:hover{color:var(--accent);text-decoration:none;transform:translateY(-1px)}
 .social-icon svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
 .social-github svg{fill:currentColor;stroke:none}
-@media(max-width:420px){.social-links{gap:8px}.social-links a.social-icon{width:42px;height:42px}}
+@media(max-width:420px){main .personal-hero{padding:62px 0 54px}.personal-hero .hero-groups{align-items:center}.social-links{gap:8px}.social-links a.social-icon{width:42px;height:42px}}

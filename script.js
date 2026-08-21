@@ -27,8 +27,9 @@
     "contact.title":"İletişime geçelim.", "contact.email":"E-posta ↗", "projects.title":"Projeler", "projects.intro":"Seçili yazılım, yapay zekâ ve veri projeleri."
   });
   Object.assign(tr, {
-    "hero.role":"BİLGİSAYAR MÜHENDİSLİĞİ ÖĞRENCİSİ",
-    "hero.intro":"Trakya Üniversitesi'nde Bilgisayar Mühendisliği okurken yapay zekâ, veri ve modern web teknolojileri üzerine projeler geliştiriyorum.",
+    "hero.role":"Bilgisayar Mühendisliği Öğrencisi",
+    "hero.intro":"Yapay zekâ, veri ve modern web teknolojileri üzerine uygulamalı projeler geliştiriyorum.",
+    "hero.education":"Trakya Üniversitesi · Bilgisayar Mühendisliği",
     "featured.intro":"Canlı web ve seçili belgeler üzerinde araştırma yapmayı sağlayan, kaynak odaklı bir çalışma alanı.",
     "featured.description":"Yanıtların dayandığı kaynakları incelemeyi kolaylaştıran bu proje; streaming yanıtları, devam sorularını ve Web, Dosyalar ile Hibrit araştırma modlarını bir araya getiriyor.",
     "ai.one":"Canlı web ve seçili belgelerde retrieval",
@@ -95,6 +96,12 @@
     const emailSocial = document.querySelector(".social-email"); if (emailSocial) emailSocial.setAttribute("aria-label", lang === "tr" ? "E-posta gönder" : "Email");
     const githubSocial = document.querySelector(".social-github"); if (githubSocial) githubSocial.setAttribute("aria-label", lang === "tr" ? "GitHub profili" : "GitHub profile");
     const linkedinSocial = document.querySelector(".social-linkedin"); if (linkedinSocial) linkedinSocial.setAttribute("aria-label", lang === "tr" ? "LinkedIn profili" : "LinkedIn profile");
+    const cvEn = document.querySelector("[data-cv-en]");
+    const cvTr = document.querySelector("[data-cv-tr]");
+    if (cvEn && cvTr) {
+      cvEn.classList.toggle("primary", lang === "en"); cvEn.classList.toggle("secondary", lang === "tr");
+      cvTr.classList.toggle("primary", lang === "tr"); cvTr.classList.toggle("secondary", lang === "en");
+    }
     const caseLink = document.querySelector(".shot[aria-label]"); if (caseLink) caseLink.setAttribute("aria-label", lang === "tr" ? "AI Search Engine vaka çalışması" : "AI Search Engine case study");
     const isDark = root.dataset.theme === "dark";
     if (themeButton) themeButton.setAttribute("aria-label", lang === "tr" ? (isDark ? "Açık temaya geç" : "Koyu temaya geç") : (isDark ? "Switch to light theme" : "Switch to dark theme"));
