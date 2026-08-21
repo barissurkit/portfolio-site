@@ -92,6 +92,9 @@
     if (lang === "tr") { document.querySelector(".skip-link")?.replaceChildren("İçeriğe geç"); if (menuButton) menuButton.textContent = "Menü"; }
     if (nav) nav.setAttribute("aria-label", lang === "tr" ? "Ana navigasyon" : "Main navigation");
     const socialNav = document.querySelector(".social-links"); if (socialNav) socialNav.setAttribute("aria-label", lang === "tr" ? "Profesyonel bağlantılar" : "Professional profiles");
+    const emailSocial = document.querySelector(".social-email"); if (emailSocial) emailSocial.setAttribute("aria-label", lang === "tr" ? "E-posta gönder" : "Email");
+    const githubSocial = document.querySelector(".social-github"); if (githubSocial) githubSocial.setAttribute("aria-label", lang === "tr" ? "GitHub profili" : "GitHub profile");
+    const linkedinSocial = document.querySelector(".social-linkedin"); if (linkedinSocial) linkedinSocial.setAttribute("aria-label", lang === "tr" ? "LinkedIn profili" : "LinkedIn profile");
     const caseLink = document.querySelector(".shot[aria-label]"); if (caseLink) caseLink.setAttribute("aria-label", lang === "tr" ? "AI Search Engine vaka çalışması" : "AI Search Engine case study");
     const isDark = root.dataset.theme === "dark";
     if (themeButton) themeButton.setAttribute("aria-label", lang === "tr" ? (isDark ? "Açık temaya geç" : "Koyu temaya geç") : (isDark ? "Switch to light theme" : "Switch to dark theme"));

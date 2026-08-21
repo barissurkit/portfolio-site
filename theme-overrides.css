@@ -1,1 +1,7 @@
 [data-theme=dark] .primary{color:#101419}
+.personal-hero{margin-inline:auto;width:100%}
+.social-links a.social-icon{display:grid;place-items:center;width:40px;height:40px;border:1px solid var(--line);border-radius:9px;background:var(--surface);color:var(--muted)}
+.social-links a.social-icon:hover{border-color:var(--accent);background:var(--accent-soft);color:var(--accent);text-decoration:none;transform:translateY(-1px)}
+.social-icon svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.social-github svg{fill:currentColor;stroke:none}
+@media(max-width:420px){.social-links{gap:8px}.social-links a.social-icon{width:42px;height:42px}}
