@@ -1,541 +1,116 @@
-"use strict";
-
 (() => {
-    const root = document.documentElement;
-    const themeButton = document.querySelector("[data-theme-toggle]");
-    const themeIcon = document.querySelector("[data-theme-icon]");
-    const languageButton = document.querySelector("[data-language-toggle]");
-    const themeColor = document.querySelector("[data-theme-color]");
-    const systemTheme = window.matchMedia("(prefers-color-scheme: dark)");
-    const desktopQuery = window.matchMedia("(min-width: 641px)");
-    const navMenu = document.querySelector("[data-nav-menu]");
-    const menuSummary = navMenu?.querySelector("summary");
-    const navLinks = navMenu?.querySelectorAll("a") ?? [];
-    const copyEmailButton = document.querySelector("[data-copy-email]");
-    const emailLink = document.querySelector("[data-email-address]");
-    const copyStatus = document.querySelector("[data-copy-status]");
-
-    const translations = {
-        tr: {
-            "meta.title": "Barış Sürkit | Kişisel Portfolyo",
-            "meta.description": "Bilgisayar mühendisliği öğrencisi Barış Sürkit'in ilgi alanları, seçili projeleri ve iletişim bilgileri.",
-            "meta.projectsTitle": "Barış Sürkit | Projeler",
-            "meta.projectsDescription": "Bilgisayar mühendisliği öğrencisi Barış Sürkit'in geliştirdiği projelerden bir seçki.",
-            "meta.ogDescription": "Barış Sürkit'in yazılım, veri analizi ve makine öğrenmesi üzerine çalışmaları.",
-            "meta.locale": "tr_TR",
-            "meta.alternateLocale": "en_US",
-            "meta.imageAlt": "Barış Sürkit portresi",
-            "external.newTab": " (yeni sekmede açılır)",
-            skipLink: "Ana içeriğe geç",
-            brandLabel: "Barış Sürkit ana sayfa",
-            preferencesLabel: "Görünüm ve dil ayarları",
-            "theme.toDark": "Koyu temaya geç",
-            "theme.toLight": "Açık temaya geç",
-            "language.toEnglish": "İngilizceye geç",
-            "language.toTurkish": "Türkçeye geç",
-            "cv.groupLabel": "CV indirme seçenekleri",
-            "cv.english": "İngilizce CV",
-            "cv.turkish": "Türkçe CV",
-            "cv.englishLabel": "İngilizce CV'yi indir",
-            "cv.turkishLabel": "Türkçe CV'yi indir",
-            "cv.englishMeta": "PDF · 1 sayfa · 30 KB",
-            "cv.turkishMeta": "PDF · 1 sayfa · 31 KB",
-            menu: "Menü",
-            navLabel: "Ana menü",
-            "nav.home": "Ana Sayfa",
-            "nav.about": "Hakkımda",
-            "nav.skills": "Yetenekler",
-            "nav.projects": "Projeler",
-            "nav.contact": "İletişim",
-            "hero.eyebrow": "Bilgisayar Mühendisliği Öğrencisi",
-            "hero.copy": "Veri bilimi, makine öğrenmesi, yapay zekâ ve yazılım geliştirmeyle ilgileniyorum. Öğrendiklerimi küçük projeler geliştirerek pekiştiriyor, çalışmalarımı bu sitede paylaşıyorum.",
-            "hero.linksLabel": "Hızlı bağlantılar",
-            "about.title": "Hakkımda",
-            "about.copy": "Ben Barış. Bilgisayar mühendisliği öğrencisiyim. Python, veri analizi ve makine öğrenmesi üzerine çalışıyorum. Öğrendiklerimi küçük projeler geliştirerek pekiştiriyorum. Bu sitede çalışmalarımı ve gelişim sürecimi paylaşıyorum.",
-            "about.educationLabel": "Eğitim",
-            "about.education": "Bilgisayar Mühendisliği öğrencisi",
-            "about.locationLabel": "Konum",
-            "about.location": "Edirne, Türkiye",
-            "about.interestsLabel": "İlgi alanları",
-            "about.interests": "Veri Bilimi, Makine Öğrenmesi, Yapay Zekâ ve Yazılım Geliştirme",
-            "skills.title": "Teknolojiler ve yetenekler",
-            "skills.intro": "Kullandığım ve üzerine çalıştığım temel konular:",
-            "skills.listLabel": "Teknolojiler ve yetenekler",
-            "skills.dataAnalysis": "Veri Analizi",
-            "skills.machineLearning": "Makine Öğrenmesi",
-            "skills.algorithm": "Algoritma",
-            "projects.title": "Seçili projeler",
-            "projects.intro": "Öğrendiklerimi uygulamak için geliştirdiğim çalışmalardan bazıları.",
-            "projects.aiSearchDescription": "Canlı web araması, dokümanlardan bilgi getirme, devam soruları ve hibrit RAG'i kaynak gösterimli, akış halinde üretilen yanıtlarla birleştiren yapay zekâ destekli araştırma çalışma alanı.",
-            "projects.aiSearchTechLabel": "AI Search Engine teknolojileri",
-            "projects.aiSearchActionsLabel": "AI Search Engine proje bağlantıları",
-            "projects.aiSearchLiveLabel": "AI Search Engine canlı demosu (yeni sekmede açılır)",
-            "projects.aiSearchSourceLabel": "AI Search Engine kaynak kodu (yeni sekmede açılır)",
-            "projects.aiSearchImageAlt": "Yanıtı ve kaynaklarını gösteren AI Search Engine araştırma çalışma alanı",
-            "projects.budgetDescription": "Gelir ve giderleri daha kolay takip etmek için hazırladığım sade bir bütçe uygulaması.",
-            "projects.budgetTechLabel": "BütçeDostum teknolojileri",
-            "projects.budgetActionsLabel": "BütçeDostum proje bağlantıları",
-            "projects.budgetLiveLabel": "BütçeDostum canlı demosu (yeni sekmede açılır)",
-            "projects.budgetSourceLabel": "BütçeDostum kaynak kodu (yeni sekmede açılır)",
-            "projects.portfolioTitle": "Kişisel Portfolyo",
-            "projects.portfolioDescription": "Projelerimi, öğrendiklerimi ve gelişim sürecimi paylaştığım bu kişisel web sitesi.",
-            "projects.portfolioTechLabel": "Portfolyo teknolojileri",
-            "projects.portfolioActionsLabel": "Kişisel Portfolyo proje bağlantıları",
-            "projects.portfolioLiveLabel": "Kişisel Portfolyo canlı demosu (yeni sekmede açılır)",
-            "projects.portfolioHomeLabel": "Kişisel Portfolyo ana sayfası",
-            "projects.portfolioSourceLabel": "Kişisel Portfolyo kaynak kodu (yeni sekmede açılır)",
-            "projects.pythonTitle": "Mini Python Scriptleri",
-            "projects.pythonDescription": "Algoritma pratiği yapmak ve günlük küçük işleri kolaylaştırmak için yazdığım scriptler.",
-            "projects.pythonTechLabel": "Python script teknolojileri",
-            "projects.statusLabel": "Durum",
-            "projects.statusLive": "Yayında",
-            "projects.noDedicatedRepository": "Özel bir depo bağlantısı yok",
-            "projects.liveDemo": "Canlı demo",
-            "projects.sourceCode": "Kaynak kodu",
-            "projects.allOnGitHub": "Tüm çalışmalarımı GitHub'da gör",
-            "projects.viewPage": "Proje vitrini sayfasına git",
-            "projects.budgetImageAlt": "BütçeDostum giriş ekranı",
-            "projects.portfolioImageAlt": "Kişisel portfolyo ana sayfası ekran görüntüsü",
-            "projectsPage.eyebrow": "Projeler",
-            "projectsPage.title": "Projeler",
-            "projectsPage.intro": "Yazılım geliştirme, veri ve makine öğrenmesi öğrenirken geliştirdiğim çalışmalardan bir seçki.",
-            "projectsPage.featuredTitle": "Öne çıkan projeler",
-            "contact.title": "İletişim",
-            "contact.intro": "Bir şey sormak veya bir proje üzerine konuşmak istersen bana ulaşabilirsin.",
-            "contact.email": "E-posta",
-            "contact.copyEmail": "Kopyala",
-            "contact.copySuccess": "E-posta adresi kopyalandı.",
-            "contact.copyError": "Kopyalanamadı; adresi seçerek kopyalayabilirsin.",
-            "contact.linkedinProfile": "LinkedIn profili",
-            "footer.backToTop": "Başa dön",
-            "footer.backToHome": "Ana sayfaya dön"
-        },
-        en: {
-            "meta.title": "Barış Sürkit | Personal Portfolio",
-            "meta.description": "The interests, selected projects, and contact details of computer engineering student Barış Sürkit.",
-            "meta.projectsTitle": "Barış Sürkit | Projects",
-            "meta.projectsDescription": "A selection of projects by computer engineering student Barış Sürkit.",
-            "meta.ogDescription": "Barış Sürkit's work in software development, data analysis, and machine learning.",
-            "meta.locale": "en_US",
-            "meta.alternateLocale": "tr_TR",
-            "meta.imageAlt": "Portrait of Barış Sürkit",
-            "external.newTab": " (opens in a new tab)",
-            skipLink: "Skip to main content",
-            brandLabel: "Barış Sürkit home page",
-            preferencesLabel: "Appearance and language settings",
-            "theme.toDark": "Switch to dark theme",
-            "theme.toLight": "Switch to light theme",
-            "language.toEnglish": "Switch to English",
-            "language.toTurkish": "Switch to Turkish",
-            "cv.groupLabel": "Resume download options",
-            "cv.english": "English CV",
-            "cv.turkish": "Turkish CV",
-            "cv.englishLabel": "Download the English CV",
-            "cv.turkishLabel": "Download the Turkish CV",
-            "cv.englishMeta": "PDF · 1 page · 30 KB",
-            "cv.turkishMeta": "PDF · 1 page · 31 KB",
-            menu: "Menu",
-            navLabel: "Main navigation",
-            "nav.home": "Home",
-            "nav.about": "About",
-            "nav.skills": "Skills",
-            "nav.projects": "Projects",
-            "nav.contact": "Contact",
-            "hero.eyebrow": "Computer Engineering Student",
-            "hero.copy": "I’m interested in data science, machine learning, artificial intelligence, and software development. I reinforce what I learn by building small projects and share my work on this site.",
-            "hero.linksLabel": "Quick links",
-            "about.title": "About me",
-            "about.copy": "I’m Barış, a computer engineering student. I work on Python, data analysis, and machine learning. I reinforce what I learn by building small projects. I share my work and learning progress on this site.",
-            "about.educationLabel": "Education",
-            "about.education": "Computer Engineering student",
-            "about.locationLabel": "Location",
-            "about.location": "Edirne, Türkiye",
-            "about.interestsLabel": "Interests",
-            "about.interests": "Data Science, Machine Learning, Artificial Intelligence, and Software Development",
-            "skills.title": "Technologies and skills",
-            "skills.intro": "The fundamentals I use and study:",
-            "skills.listLabel": "Technologies and skills",
-            "skills.dataAnalysis": "Data Analysis",
-            "skills.machineLearning": "Machine Learning",
-            "skills.algorithm": "Algorithms",
-            "projects.title": "Selected projects",
-            "projects.intro": "A few projects I have built to apply what I learn.",
-            "projects.aiSearchDescription": "A citation-aware AI research workspace combining live web search, document retrieval, conversational follow-ups, and hybrid RAG with streamed, source-grounded answers.",
-            "projects.aiSearchTechLabel": "AI Search Engine technologies",
-            "projects.aiSearchActionsLabel": "AI Search Engine project links",
-            "projects.aiSearchLiveLabel": "AI Search Engine live demo (opens in a new tab)",
-            "projects.aiSearchSourceLabel": "AI Search Engine source code (opens in a new tab)",
-            "projects.aiSearchImageAlt": "AI Search Engine research workspace showing an answer and its sources",
-            "projects.budgetDescription": "A simple budget application I built to make tracking income and expenses easier.",
-            "projects.budgetTechLabel": "BütçeDostum technologies",
-            "projects.budgetActionsLabel": "BütçeDostum project links",
-            "projects.budgetLiveLabel": "BütçeDostum live demo (opens in a new tab)",
-            "projects.budgetSourceLabel": "BütçeDostum source code (opens in a new tab)",
-            "projects.portfolioTitle": "Personal Portfolio",
-            "projects.portfolioDescription": "This personal website where I share my projects, what I learn, and my progress.",
-            "projects.portfolioTechLabel": "Portfolio technologies",
-            "projects.portfolioActionsLabel": "Personal Portfolio project links",
-            "projects.portfolioLiveLabel": "Personal Portfolio live demo (opens in a new tab)",
-            "projects.portfolioHomeLabel": "Personal Portfolio home page",
-            "projects.portfolioSourceLabel": "Personal Portfolio source code (opens in a new tab)",
-            "projects.pythonTitle": "Mini Python Scripts",
-            "projects.pythonDescription": "Scripts I write to practise algorithms and simplify small everyday tasks.",
-            "projects.pythonTechLabel": "Python script technologies",
-            "projects.statusLabel": "Status",
-            "projects.statusLive": "Live",
-            "projects.noDedicatedRepository": "No dedicated repository",
-            "projects.liveDemo": "Live demo",
-            "projects.sourceCode": "Source code",
-            "projects.allOnGitHub": "See all my work on GitHub",
-            "projects.viewPage": "View the project showcase",
-            "projects.budgetImageAlt": "BütçeDostum login screen",
-            "projects.portfolioImageAlt": "Personal portfolio home page screenshot",
-            "projectsPage.eyebrow": "Projects",
-            "projectsPage.title": "Projects",
-            "projectsPage.intro": "A selection of projects I have built while learning and exploring software development, data, and machine learning.",
-            "projectsPage.featuredTitle": "Featured Projects",
-            "contact.title": "Contact",
-            "contact.intro": "Feel free to get in touch if you would like to ask something or discuss a project.",
-            "contact.email": "Email",
-            "contact.copyEmail": "Copy",
-            "contact.copySuccess": "Email address copied.",
-            "contact.copyError": "Could not copy; select the address to copy it.",
-            "contact.linkedinProfile": "LinkedIn profile",
-            "footer.backToTop": "Back to top",
-            "footer.backToHome": "Back to home"
-        }
-    };
-
-    const getStoredValue = (key) => {
-        try {
-            return localStorage.getItem(key);
-        } catch {
-            return null;
-        }
-    };
-
-    const storeValue = (key, value) => {
-        try {
-            localStorage.setItem(key, value);
-        } catch {
-            // The controls still work when storage is unavailable.
-        }
-    };
-
-    let hasSavedTheme = ["light", "dark"].includes(getStoredValue("portfolio-theme"));
-    let currentTheme = ["light", "dark"].includes(root.dataset.theme)
-        ? root.dataset.theme
-        : systemTheme.matches ? "dark" : "light";
-    let currentLanguage = ["en", "tr"].includes(getStoredValue("portfolio-language"))
-        ? getStoredValue("portfolio-language")
-        : "en";
-    let copyStatusKey = null;
-    let copyStatusTimer = null;
-    let isCopyingEmail = false;
-
-    const updateThemeControl = () => {
-        const isDark = currentTheme === "dark";
-        const dictionary = translations[currentLanguage];
-        const label = dictionary[isDark ? "theme.toLight" : "theme.toDark"];
-
-        if (themeButton) {
-            themeButton.setAttribute("aria-label", label);
-            themeButton.title = label;
-        }
-
-        if (themeIcon) {
-            themeIcon.textContent = isDark ? "☼" : "☾";
-        }
-
-        if (themeColor) {
-            themeColor.content = isDark ? "#222728" : "#f5f3ee";
-        }
-    };
-
-    const applyTheme = (theme, save = false) => {
-        currentTheme = theme === "dark" ? "dark" : "light";
-        root.dataset.theme = currentTheme;
-
-        if (save) {
-            hasSavedTheme = true;
-            storeValue("portfolio-theme", currentTheme);
-        }
-
-        updateThemeControl();
-    };
-
-    const applyLanguage = (language, save = false) => {
-        currentLanguage = language === "en" ? "en" : "tr";
-        const dictionary = translations[currentLanguage];
-        root.lang = currentLanguage;
-        const pageTitle = document.querySelector("[data-page-title]");
-        document.title = dictionary[pageTitle?.dataset.pageTitle ?? "meta.title"];
-
-        if (save) {
-            storeValue("portfolio-language", currentLanguage);
-        }
-
-        document.querySelectorAll("[data-i18n]").forEach((element) => {
-            const value = dictionary[element.dataset.i18n];
-            if (value) {
-                element.textContent = value;
-            }
-        });
-
-        document.querySelectorAll("[data-i18n-aria-label]").forEach((element) => {
-            const value = dictionary[element.dataset.i18nAriaLabel];
-            if (value) {
-                element.setAttribute("aria-label", value);
-            }
-        });
-
-        document.querySelectorAll("[data-i18n-content]").forEach((element) => {
-            const value = dictionary[element.dataset.i18nContent];
-            if (value) {
-                element.setAttribute("content", value);
-            }
-        });
-
-        document.querySelectorAll("[data-i18n-alt]").forEach((element) => {
-            const value = dictionary[element.dataset.i18nAlt];
-            if (value) {
-                element.setAttribute("alt", value);
-            }
-        });
-
-        if (copyStatus && copyStatusKey) {
-            copyStatus.textContent = dictionary[copyStatusKey];
-        }
-
-        if (languageButton) {
-            const targetLanguage = currentLanguage === "tr" ? "en" : "tr";
-            const label = dictionary[currentLanguage === "tr" ? "language.toEnglish" : "language.toTurkish"];
-            languageButton.textContent = targetLanguage.toUpperCase();
-            languageButton.lang = targetLanguage;
-            languageButton.setAttribute("aria-label", label);
-            languageButton.title = label;
-        }
-
-        updateThemeControl();
-    };
-
-    themeButton?.addEventListener("click", () => {
-        applyTheme(currentTheme === "dark" ? "light" : "dark", true);
-    });
-
-    languageButton?.addEventListener("click", () => {
-        applyLanguage(currentLanguage === "tr" ? "en" : "tr", true);
-    });
-
-    const showCopyStatus = (key) => {
-        if (!copyStatus) {
-            return;
-        }
-
-        copyStatusKey = key;
-        copyStatus.textContent = translations[currentLanguage][key];
-        window.clearTimeout(copyStatusTimer);
-        copyStatusTimer = window.setTimeout(() => {
-            copyStatusKey = null;
-            copyStatus.textContent = "";
-        }, 3500);
-    };
-
-    const copyWithFallback = (value) => {
-        const previousFocus = document.activeElement;
-        const textArea = document.createElement("textarea");
-        textArea.value = value;
-        textArea.setAttribute("readonly", "");
-        textArea.style.position = "fixed";
-        textArea.style.opacity = "0";
-        document.body.append(textArea);
-        textArea.select();
-        let copied = false;
-
-        try {
-            copied = document.execCommand("copy");
-        } finally {
-            textArea.remove();
-            previousFocus?.focus();
-        }
-
-        if (!copied) {
-            throw new Error("Copy command was not successful.");
-        }
-    };
-
-    if (copyEmailButton && emailLink) {
-        copyEmailButton.hidden = false;
-        copyEmailButton.addEventListener("click", async () => {
-            if (isCopyingEmail) {
-                return;
-            }
-
-            const emailAddress = decodeURIComponent(emailLink.href.replace(/^mailto:/, "").split("?")[0]);
-            isCopyingEmail = true;
-
-            try {
-                if (navigator.clipboard?.writeText && window.isSecureContext) {
-                    try {
-                        await navigator.clipboard.writeText(emailAddress);
-                    } catch {
-                        copyWithFallback(emailAddress);
-                    }
-                } else {
-                    copyWithFallback(emailAddress);
-                }
-                showCopyStatus("contact.copySuccess");
-            } catch {
-                showCopyStatus("contact.copyError");
-            } finally {
-                isCopyingEmail = false;
-            }
-        });
+  "use strict";
+  const root = document.documentElement;
+  const themeButton = document.querySelector("[data-theme-toggle]");
+  const languageButton = document.querySelector("[data-language-toggle]");
+  const menuButton = document.querySelector("[data-menu]");
+  const nav = document.querySelector(".nav");
+  const themeColor = document.querySelector("[data-theme-color]");
+  const tr = {
+    "meta.homeTitle":"Barış Sürkit — Yazılım, Yapay Zekâ ve Veri", "meta.homeDescription":"Barış Sürkit, yapay zekâ, veri ve modern web teknolojileriyle yazılım geliştiriyor.",
+    "meta.projectsTitle":"Projeler — Barış Sürkit", "meta.projectsDescription":"Barış Sürkit'in seçili yazılım projeleri.", "meta.caseTitle":"AI Search Engine — Vaka Çalışması", "meta.caseDescription":"AI Search Engine: kaynak farkındalığı olan araştırma çalışma alanı vaka çalışması.", "meta.404Title":"Sayfa bulunamadı — Barış Sürkit",
+    "nav.about":"Hakkımda", "nav.journey":"Yolculuk", "nav.projects":"Projeler", "nav.stack":"Teknolojiler", "nav.allProjects":"Tüm işler", "nav.contact":"İletişim", "nav.home":"Ana sayfa",
+    "hero.kicker":"YAZILIM MÜHENDİSLİĞİ · YAPAY ZEKÂ · VERİ", "hero.copy":"Ben Barış Sürkit. Yapay zekâ araştırması, veri ve modern web alanlarında pratik projeler geliştiren bir bilgisayar mühendisliği öğrencisiyim.", "hero.projects":"Projeleri incele ↓",
+    "focus.label":"GÜNCEL ODAK", "focus.title":"Kanıtı görünür kılan araştırma araçları.", "focus.copy":"Getirim sistemlerini, kaynaklı yanıtları ve özenli ürün arayüzlerini araştırıyorum.", "focus.link":"AI Search Engine’i incele →",
+    "featured.label":"01 / ÖNE ÇIKAN ÇALIŞMA", "featured.intro":"Canlı web ve seçili belgeler üzerinde soruları araştırmak için kaynak farkındalığı olan bir çalışma alanı.", "featured.description":"Akış halinde yanıtlar, devam soruları ve Web, Dosyalar veya Hibrit araştırma modlarıyla bir yanıtın arkasındaki kanıtı incelenebilir kılmak için geliştirildi.", "featured.case":"Vaka çalışmasını oku →", "featured.demo":"Canlı demo ↗", "ai.one":"Canlı web ve seçili belge retrieval", "ai.two":"Mesaj bazlı kaynaklar ve özel kaynak çalışma alanı", "ai.three":"Tarayıcıda yerel geçmişle SSE streaming yanıtlar",
+    "other.label":"02 / DİĞER ÇALIŞMALAR", "other.title":"Geliştirdiğim birkaç çalışma daha.", "other.link":"Tüm projeleri gör →", "budget.copy":"Gelir ve giderleri düzenlemek için geliştirilmiş full-stack kişisel bütçe takip uygulaması.", "portfolio.title":"Kişisel Portfolyo", "portfolio.copy":"Seçili çalışmaları paylaşmak için erişilebilir, çift dilli bir alan.",
+    "about.label":"03 / HAKKIMDA", "about.title":"Geliştirerek öğreniyorum.", "about.copy":"Trakya Üniversitesi Bilgisayar Mühendisliği öğrencisiyim. Veri keşfinden full-stack uygulamalara ve yapay zekâ destekli araştırma araçlarına kadar teknik fikirleri kullanışlı deneyimlere dönüştürmeyi seviyorum.", "about.cv":"CV indir (EN) ↓", "journey.label":"04 / YOLCULUK", "journey.title":"Üzerine inşa ettiğim temel.", "journey.eduTitle":"Bilgisayar Mühendisliği Lisans", "journey.eduCopy":"Trakya Üniversitesi · Devam ediyor", "journey.gdgTitle":"Organizasyon Ekip Lideri", "journey.gdgCopy":"GDG on Campus Trakya University · Topluluk etkinlikleri ve teknik buluşmalar", "stack.label":"05 / ARAÇ SETİ", "stack.title":"Pratik bir teknik temel.", "stack.lang":"Diller", "stack.ai":"Yapay Zekâ ve Veri", "stack.web":"Web ve API'ler", "stack.tools":"Araçlar ve Altyapı", "contact.label":"06 / İLETİŞİM", "contact.title":"Birlikte faydalı bir şey üretelim.", "contact.copy":"Yazılım, yapay zekâ ve gerçek işler üzerinden öğrenme fırsatları hakkında konuşmaya açığım.", "contact.email":"E-posta gönder ↗", "footer.role":"Yazılım · Yapay Zekâ · Veri", "footer.top":"Başa dön ↑",
+    "projects.kicker":"SEÇİLİ ÇALIŞMALAR", "projects.title":"Gerçek amaçla\ngeliştirilen <em>projeler.</em>", "projects.intro":"Yapay zekâ araştırması, full-stack geliştirme ve web alanlarında odaklı bir çalışma seçkisi.", "projects.featured":"ÖNE ÇIKAN / YAPAY ZEKÂ ARAŞTIRMASI", "projects.description":"Canlı web araması, seçili belge retrieval ve hibrit RAG'i bir araya getiren kaynak farkındalığı olan araştırma çalışma alanı.", "projects.case":"Vaka çalışması →", "projects.live":"Canlı demo ↗", "projects.source":"Kaynak kodu ↗", "projects.budgetLabel":"WEB UYGULAMASI", "projects.budgetDescription":"Next.js, TypeScript, Prisma ve SQLite ile geliştirilmiş full-stack kişisel bütçe takip uygulaması.", "projects.portfolioLabel":"WEB TASARIMI VE GELİŞTİRME", "projects.portfolioDescription":"Projeleri ve mühendislik çalışmalarını öne çıkaran erişilebilir, çift dilli portfolyo.", "footer.home":"Ana sayfaya dön ↑",
+    "case.kicker":"VAKA ÇALIŞMASI / YAPAY ZEKÂ ARAŞTIRMASI", "case.lede":"Canlı web ve seçili belgelerde arama yapıp her yanıtın arkasındaki kanıtı incelemek için kaynak farkındalığı olan araştırma çalışma alanı.", "case.overview":"GENEL BAKIŞ", "case.overviewTitle":"Kaynaklarını yanında tutan araştırma.", "case.overviewCopy":"AI Search Engine, canlı Tavily retrieval ile seçili PDF, TXT, Markdown veya DOCX belgelerini tek bir konuşmada buluşturur. Yanıtlar aşamalı olarak stream edilir; kaynaklar zaman içinde incelenebilir kalır.", "case.arch":"MİMARİ", "case.archTitle":"Tek yanıt modeli, ayrı kanıt yaşam döngüleri.", "case.frontend":"Frontend", "case.frontendCopy":"React/Vite çalışma alanını, yerel IndexedDB geçmişini, deep linkleri ve streaming render'ı sağlar.", "case.backend":"Backend", "case.backendCopy":"Arama, yanıt, streaming, yükleme, belge silme ve orkestrasyonu FastAPI yönetir.", "case.web":"Web kanıtı", "case.webCopy":"Tavily arama → fetch/extract → chunk → istek kapsamlı Qdrant retrieval → cleanup.", "case.file":"Dosya kanıtı", "case.fileCopy":"Seçili konuşma belgeleri çıkarılır, kalıcı olarak indekslenir ve kapsamına göre retrieve edilir.", "case.generation":"Üretim", "case.generationCopy":"Kaynak farkındalığı olan context bir Ollama sağlayıcısına aktarılır; kaynaklar yanıtla birlikte döner.", "case.sources":"Kaynak çalışma alanı", "case.sourcesCopy":"Mesaj bazlı Web ve Dosya kaynakları masaüstünde panel, mobilde drawer olarak sunulur.", "case.decisions":"TEKNİK KARARLAR", "case.scoped":"Kapsamlı retrieval", "case.scopedCopy":"Web kanıtı istek başına geçicidir; dosya chunk'ları cleanup'a kadar seçili konuşmaya bağlı kalır.", "case.citations":"Ürün arayüzü olarak kaynaklar", "case.citationsCopy":"Satır içi kaynak işaretleri korunmuş kaynak listelerine bağlanarak kanıtı incelemeyi kolaylaştırır.", "case.streaming":"Varsayılan olarak streaming", "case.streamingCopy":"POST + fetch ve ReadableStream SSE parsing, ilerleme ile yanıt parçalarını gelir gelmez render eder.", "case.evaluation":"Dürüst değerlendirme", "case.evaluationCopy":"Deterministik offline quality gate 29/29 PASS raporlar; citation metrikleri olgusal doğruluk iddiası değil, yapısal regresyon kontrolüdür.", "case.try":"DENEYİN", "case.tryTitle":"Çalışma alanını keşfedin.", "case.tryCopy":"Production, Vercel frontend ve Render üzerindeki FastAPI backend ile çalışır. Ücretsiz backend, hareketsizlikten sonra geç açılabilir.", "case.open":"Canlı demoyu aç ↗", "case.all":"Tüm projeler ↑",
+    "notfound.kicker":"404 / BULUNAMADI", "notfound.title":"Bu sayfa\nyolunu kaybetti.", "notfound.copy":"Aradığınız sayfa mevcut değil veya taşınmış olabilir.", "notfound.back":"Ana sayfaya dön →", "alt.ai":"Kaynaklar ve citation'lar içeren AI Search Engine araştırma çalışma alanı", "alt.budget":"BütçeDostum bütçe uygulaması", "alt.portfolio":"Kişisel portfolyo web sitesi"
+  };
+  Object.assign(tr, {
+    "hero.kicker":"BİLGİSAYAR MÜHENDİSLİĞİ · YAPAY ZEKÂ · VERİ", "hero.title":"Yapay zekâ, veri ve web alanlarında yazılım geliştiriyorum.",
+    "other.title":"Diğer seçili projeler.", "about.title":"Hakkımda", "about.cvEn":"CV (EN) ↓", "about.cvTr":"CV (TR) ↓",
+    "journey.title":"Deneyim ve eğitim", "journey.internDate":"Ağustos 2026", "journey.internTitle":"Yazılım Stajyeri",
+    "stack.label":"05 / TEKNOLOJİLER", "stack.title":"Kullandığım teknolojiler", "stack.frontend":"Frontend", "stack.backend":"Backend ve API'ler", "stack.retrieval":"Veri / Retrieval", "stack.tools":"Araçlar ve Deployment",
+    "contact.title":"İletişime geçelim.", "contact.email":"E-posta ↗", "projects.title":"Projeler", "projects.intro":"Seçili yazılım, yapay zekâ ve veri projeleri."
+  });
+  Object.assign(tr, {
+    "hero.role":"Bilgisayar Mühendisliği Öğrencisi",
+    "hero.intro":"Yapay zekâ, veri ve modern web teknolojileri üzerine uygulamalı projeler geliştiriyorum.",
+    "hero.education":"Trakya Üniversitesi · Bilgisayar Mühendisliği",
+    "featured.intro":"Canlı web ve seçili belgeler üzerinde araştırma yapmayı sağlayan, kaynak odaklı bir çalışma alanı.",
+    "featured.description":"Yanıtların dayandığı kaynakları incelemeyi kolaylaştıran bu proje; streaming yanıtları, devam sorularını ve Web, Dosyalar ile Hibrit araştırma modlarını bir araya getiriyor.",
+    "ai.one":"Canlı web ve seçili belgelerde retrieval",
+    "ai.two":"Her mesaja ait kaynaklar ve ayrı bir kaynak paneli",
+    "ai.three":"Tarayıcıda saklanan geçmiş ve SSE ile streaming yanıtlar",
+    "other.title":"Diğer projeler",
+    "budget.copy":"Gelir ve giderleri kategorilere ayırarak takip etmeyi sağlayan full-stack kişisel bütçe uygulaması.",
+    "portfolio.copy":"Projelerimi ve mühendislik çalışmalarımı paylaştığım erişilebilir, iki dilli portfolyo sitesi.",
+    "about.copy":"Trakya Üniversitesi Bilgisayar Mühendisliği öğrencisiyim. Veri analizinden full-stack uygulamalara ve yapay zekâ destekli araştırma araçlarına kadar farklı alanlarda projeler geliştirerek öğreniyorum.",
+    "journey.title":"Deneyim ve eğitim",
+    "journey.eduCopy":"Trakya Üniversitesi · Eğitim devam ediyor",
+    "stack.title":"Kullandığım teknolojiler",
+    "contact.title":"İletişime geçelim.",
+    "contact.copy":"Yazılım, yapay zekâ ve birlikte üretme fırsatları hakkında konuşmak için bana ulaşabilirsiniz.",
+    "projects.kicker":"PROJELER",
+    "projects.intro":"Yazılım, yapay zekâ ve veri alanlarından seçili projeler.",
+    "projects.featured":"ÖNE ÇIKAN / YAPAY ZEKÂ",
+    "projects.description":"Canlı web aramasını, seçili belgelerde retrieval'ı ve hibrit RAG yaklaşımını bir araya getiren kaynak odaklı araştırma uygulaması.",
+    "projects.case":"Vaka çalışması →",
+    "projects.live":"Canlı demo ↗",
+    "projects.source":"Kaynak kodu ↗",
+    "projects.budgetDescription":"Next.js, TypeScript, Prisma ve SQLite ile geliştirilen full-stack kişisel bütçe takip uygulaması.",
+    "projects.portfolioDescription":"Projeleri ve mühendislik çalışmalarını öne çıkaran erişilebilir, iki dilli portfolyo.",
+    "case.lede":"Canlı web ve seçili belgelerde araştırma yapmayı, ardından her yanıtın dayandığı kaynakları incelemeyi sağlayan kaynak odaklı bir çalışma alanı.",
+    "case.overviewTitle":"Araştırma ve kaynaklar aynı yerde.",
+    "case.overviewCopy":"AI Search Engine, Tavily üzerinden canlı web retrieval ile seçili PDF, TXT, Markdown ve DOCX belgelerini tek bir konuşmada birleştiriyor. Yanıtlar aşamalı olarak stream edilirken her mesajın kaynak listesi korunuyor.",
+    "case.archTitle":"Tek yanıt modeli, iki farklı kanıt yaşam döngüsü.",
+    "case.frontendCopy":"React/Vite; çalışma alanını, IndexedDB'de tutulan yerel geçmişi, deep linkleri ve streaming render sürecini yönetiyor.",
+    "case.backendCopy":"FastAPI; arama, yanıt üretimi, streaming, belge yükleme, silme ve orkestrasyon işlemlerini yönetiyor.",
+    "case.webCopy":"Tavily araması → fetch/extract → chunk → istek kapsamlı Qdrant retrieval → cleanup.",
+    "case.fileCopy":"Seçili konuşma belgeleri çıkarılır, kalıcı olarak indekslenir ve yalnızca ilgili kapsam içinde retrieve edilir.",
+    "case.generationCopy":"Kaynakları içeren context, Ollama sağlayıcısına aktarılır; yanıt ve kaynaklar birlikte döner.",
+    "case.sourcesCopy":"Her mesaja ait Web ve Dosya kaynakları masaüstünde panel, mobilde drawer üzerinden incelenebilir.",
+    "case.scoped":"Kapsam kontrollü retrieval",
+    "case.scopedCopy":"Web kaynakları her istek için geçicidir; belge chunk'ları ise cleanup yapılana kadar seçili konuşmaya bağlı kalır.",
+    "case.citations":"Arayüzün parçası olan citation'lar",
+    "case.citationsCopy":"Metin içindeki citation işaretleri korunmuş kaynak listelerine bağlanarak dayanakları incelemeyi kolaylaştırır.",
+    "case.streamingCopy":"POST + fetch ve ReadableStream üzerinden SSE parsing kullanılarak ilerleme bilgisi ve yanıt parçaları geldikçe render edilir.",
+    "case.evaluationCopy":"Deterministik offline quality gate 29/29 PASS sonucunu veriyor. Citation metrikleri olgusal doğruluk iddiası değil, yapısal regresyon kontrolüdür.",
+    "case.try":"CANLI SÜRÜM",
+    "case.tryTitle":"Uygulamayı inceleyin.",
+    "case.tryCopy":"Production ortamında frontend Vercel'de, FastAPI backend ise Render'da çalışıyor. Ücretsiz backend, bir süre kullanılmadığında geç açılabilir.",
+    "case.open":"Canlı demoyu aç ↗",
+    "notfound.title":"Bu sayfa bulunamadı.",
+    "notfound.copy":"Aradığınız sayfa kaldırılmış veya başka bir adrese taşınmış olabilir.",
+    "alt.ai":"Yanıtı, citation'ları ve kaynakları gösteren AI Search Engine çalışma alanı",
+    "alt.budget":"BütçeDostum kişisel bütçe uygulaması ekranı",
+    "alt.portfolio":"Barış Sürkit kişisel portfolyo sitesi"
+  });
+  const lang = localStorage.getItem("portfolio-language") || "en";
+  const applyLanguage = () => {
+    root.lang = lang;
+    const brand = document.querySelector(".brand"); if (brand) brand.innerHTML = "Barış Sürkit<span>.</span>";
+    if (lang === "tr") document.querySelectorAll("[data-i18n]").forEach((el) => { const value = tr[el.dataset.i18n]; if (value) el.innerHTML = value; });
+    if (lang === "tr") document.querySelectorAll("[data-i18n-content]").forEach((el) => { const value = tr[el.dataset.i18nContent]; if (value) el.content = value; });
+    if (lang === "tr") document.querySelectorAll("[data-i18n-alt]").forEach((el) => { const value = tr[el.dataset.i18nAlt]; if (value) el.alt = value; });
+    if (lang === "tr") { const alts = { "ai.alt":"Kaynaklar ve citation'lar içeren AI Search Engine araştırma çalışma alanı", "budget.alt":"BütçeDostum bütçe uygulaması", "portfolio.alt":"Kişisel portfolyo web sitesi" }; document.querySelectorAll("[data-i18n-alt]").forEach((el) => { if (alts[el.dataset.i18nAlt]) el.alt = alts[el.dataset.i18nAlt]; }); }
+    const title = document.querySelector("title[data-i18n]"); if (lang === "tr" && title && tr[title.dataset.i18n]) document.title = tr[title.dataset.i18n];
+    if (lang === "tr" && document.querySelector("[data-page-title='meta.title']")) document.title = tr["meta.homeTitle"];
+    if (lang === "tr") document.querySelectorAll("[data-i18n-content='meta.description']").forEach((el) => { el.content = tr["meta.homeDescription"]; });
+    if (lang === "tr") { document.querySelector(".skip-link")?.replaceChildren("İçeriğe geç"); if (menuButton) menuButton.textContent = "Menü"; }
+    if (nav) nav.setAttribute("aria-label", lang === "tr" ? "Ana navigasyon" : "Main navigation");
+    const socialNav = document.querySelector(".social-links"); if (socialNav) socialNav.setAttribute("aria-label", lang === "tr" ? "Profesyonel bağlantılar" : "Professional profiles");
+    const emailSocial = document.querySelector(".social-email"); if (emailSocial) emailSocial.setAttribute("aria-label", lang === "tr" ? "E-posta gönder" : "Email");
+    const githubSocial = document.querySelector(".social-github"); if (githubSocial) githubSocial.setAttribute("aria-label", lang === "tr" ? "GitHub profili" : "GitHub profile");
+    const linkedinSocial = document.querySelector(".social-linkedin"); if (linkedinSocial) linkedinSocial.setAttribute("aria-label", lang === "tr" ? "LinkedIn profili" : "LinkedIn profile");
+    const cvEn = document.querySelector("[data-cv-en]");
+    const cvTr = document.querySelector("[data-cv-tr]");
+    if (cvEn && cvTr) {
+      cvEn.classList.toggle("primary", lang === "en"); cvEn.classList.toggle("secondary", lang === "tr");
+      cvTr.classList.toggle("primary", lang === "tr"); cvTr.classList.toggle("secondary", lang === "en");
     }
-
-    const handleSystemThemeChange = (event) => {
-        if (!hasSavedTheme) {
-            applyTheme(event.matches ? "dark" : "light");
-        }
-    };
-
-    if (typeof systemTheme.addEventListener === "function") {
-        systemTheme.addEventListener("change", handleSystemThemeChange);
-    } else {
-        systemTheme.addListener(handleSystemThemeChange);
-    }
-
-    if (navMenu) {
-        const closeMobileMenu = () => {
-            if (!desktopQuery.matches) {
-                navMenu.open = false;
-            }
-        };
-
-        navLinks.forEach((link) => {
-            link.addEventListener("click", closeMobileMenu);
-        });
-
-        document.addEventListener("pointerdown", (event) => {
-            if (!desktopQuery.matches && navMenu.open && !navMenu.contains(event.target)) {
-                closeMobileMenu();
-            }
-        });
-
-        document.addEventListener("keydown", (event) => {
-            if (event.key === "Escape" && !desktopQuery.matches && navMenu.open) {
-                closeMobileMenu();
-                menuSummary?.focus();
-            }
-        });
-
-        desktopQuery.addEventListener("change", (event) => {
-            navMenu.open = event.matches;
-        });
-
-        navMenu.open = desktopQuery.matches;
-    }
-
-    const navigationTargets = Array.from(navLinks)
-        .map((link) => {
-            if (!link.hash) {
-                return null;
-            }
-
-            const section = document.querySelector(link.hash);
-            return section ? { link, section } : null;
-        })
-        .filter(Boolean);
-
-    const setActiveNavigation = (sectionId) => {
-        navigationTargets.forEach(({ link, section }) => {
-            if (section.id === sectionId) {
-                link.setAttribute("aria-current", "location");
-            } else {
-                link.removeAttribute("aria-current");
-            }
-        });
-    };
-
-    if (navigationTargets.length) {
-        const syncNavigationWithHash = () => {
-            const target = navigationTargets.find(({ link }) => link.hash === window.location.hash);
-            if (target) {
-                setActiveNavigation(target.section.id);
-            }
-        };
-
-        const hashTarget = navigationTargets.find(({ link }) => link.hash === window.location.hash);
-        setActiveNavigation(hashTarget?.section.id ?? navigationTargets[0].section.id);
-
-        navigationTargets.forEach(({ link, section }) => {
-            link.addEventListener("click", () => setActiveNavigation(section.id));
-        });
-
-        if ("IntersectionObserver" in window) {
-            let sectionObserver = null;
-            let observerResizeFrame = null;
-
-            const isAtPageBottom = () => {
-                const pageBottom = Math.ceil(window.scrollY + window.innerHeight);
-                return pageBottom >= document.documentElement.scrollHeight - 1;
-            };
-
-            const setLastSectionAtPageBottom = () => {
-                if (isAtPageBottom()) {
-                    setActiveNavigation(navigationTargets.at(-1).section.id);
-                    return true;
-                }
-                return false;
-            };
-
-            const observeNavigationSections = () => {
-                sectionObserver?.disconnect();
-                const visibleSections = new Set();
-                const markerPosition = Math.min(window.innerHeight * 0.25, 220);
-                const bottomMargin = Math.max(0, window.innerHeight - markerPosition - 1);
-
-                sectionObserver = new IntersectionObserver((entries) => {
-                    entries.forEach((entry) => {
-                        if (entry.isIntersecting) {
-                            visibleSections.add(entry.target.id);
-                        } else {
-                            visibleSections.delete(entry.target.id);
-                        }
-                    });
-
-                    if (setLastSectionAtPageBottom()) {
-                        return;
-                    }
-
-                    const activeTarget = navigationTargets
-                        .filter(({ section }) => visibleSections.has(section.id))[0];
-
-                    if (activeTarget) {
-                        setActiveNavigation(activeTarget.section.id);
-                    }
-                }, {
-                    rootMargin: `-${markerPosition}px 0px -${bottomMargin}px 0px`,
-                    threshold: 0
-                });
-
-                navigationTargets.forEach(({ section }) => sectionObserver.observe(section));
-            };
-
-            observeNavigationSections();
-            window.addEventListener("scroll", setLastSectionAtPageBottom, { passive: true });
-            window.addEventListener("resize", () => {
-                window.cancelAnimationFrame(observerResizeFrame);
-                observerResizeFrame = window.requestAnimationFrame(observeNavigationSections);
-            }, { passive: true });
-        }
-
-        window.addEventListener("hashchange", syncNavigationWithHash);
-        window.addEventListener("load", () => {
-            window.requestAnimationFrame(syncNavigationWithHash);
-        }, { once: true });
-    }
-
-    applyTheme(currentTheme);
-    applyLanguage(currentLanguage);
+    const caseLink = document.querySelector(".shot[aria-label]"); if (caseLink) caseLink.setAttribute("aria-label", lang === "tr" ? "AI Search Engine vaka çalışması" : "AI Search Engine case study");
+    const isDark = root.dataset.theme === "dark";
+    if (themeButton) themeButton.setAttribute("aria-label", lang === "tr" ? (isDark ? "Açık temaya geç" : "Koyu temaya geç") : (isDark ? "Switch to light theme" : "Switch to dark theme"));
+    const themeIcon = document.querySelector("[data-theme-icon]"); if (themeIcon) themeIcon.textContent = isDark ? "☀" : "☾"; else if (themeButton) themeButton.textContent = isDark ? "☀" : "☾";
+    if (languageButton) { languageButton.textContent = lang === "en" ? "TR" : "EN"; languageButton.lang = lang === "en" ? "tr" : "en"; languageButton.setAttribute("aria-label", lang === "en" ? "Türkçeye geç" : "Switch to English"); }
+  };
+  themeButton?.addEventListener("click", () => { const theme = root.dataset.theme === "dark" ? "light" : "dark"; root.dataset.theme = theme; localStorage.setItem("portfolio-theme", theme); if (themeColor) themeColor.content = theme === "dark" ? "#101419" : "#f7f8f9"; applyLanguage(); });
+  languageButton?.addEventListener("click", () => { localStorage.setItem("portfolio-language", lang === "en" ? "tr" : "en"); location.reload(); });
+  menuButton?.addEventListener("click", () => { const open = nav?.classList.toggle("open"); menuButton.setAttribute("aria-expanded", String(open)); });
+  nav?.querySelectorAll("a").forEach((link) => link.addEventListener("click", () => { nav.classList.remove("open"); menuButton?.setAttribute("aria-expanded", "false"); }));
+  applyLanguage();
 })();
